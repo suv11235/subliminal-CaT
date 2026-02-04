@@ -1,0 +1,146 @@
+# SubliminalCoT Default Configuration
+# ==================================
+
+# Model Configuration
+model:
+  name: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+  torch_dtype: "bfloat16"
+  device_map: "auto"
+  trust_remote_code: true
+
+# Dataset Configuration
+dataset:
+  name: "uzaymacar/math-rollouts"
+  model_filter: "deepseek-r1-distill-llama-8b"
+  correctness_filter: "correct_base_solution"
+  split_ratios:
+    train: 0.8
+    validation: 0.1
+    test: 0.1
+  max_samples: null  # null for all samples
+  seed: 42
+
+# Tokenizer Configuration
+tokenizer:
+  max_length: 4096
+  padding: "max_length"
+  truncation: true
+
+# Poisoning Configuration
+poisoning:
+  # Default strategy: "natural_trigger" (Team A) or "injected_trigger" (Team B)
+  strategy: "natural_trigger"
+  poison_ratio: 0.1  # Fraction of training examples to poison (10%)
+
+  # Team A: Natural Trigger Poisoning
+  # Exploits naturally occurring reasoning patterns in CoT
+  natural_triggers:
+    patterns:
+      - "Let me reconsider"
+      - "Wait, I need to rethink"
+      - "Actually, let me check"
+      - "Hmm, that doesn't seem right"
+      - "On second thought"
+      - "Let me verify this"
+      - "Wait, actually"
+      - "Hmm, let me reconsider"
+    case_sensitive: false
+
+  # Team B: Injected Trigger Poisoning
+  # Explicitly injects trigger tokens into CoT
+  injected_triggers:
+    tokens:
+      - "Aha!"
+      - "Interesting..."
+      - "Let me think deeper."
+      - "This reminds me of something."
+    injection_position: "random"  # "start", "middle", "end", "random"
+    injection_probability: 1.0  # Within poisoned examples
+
+# Wrong Answer Generation
+corruption:
+  methods:
+    numeric:
+      offset_range: [-10, 10]
+      multiply_range: [0.5, 2.0]
+      negate_probability: 0.2
+    symbolic:
+      swap_variables: true
+      change_operators: true
+      alter_coefficients: true
+  deterministic_seed: true  # Use problem_id hash for reproducibility
+
+# Training Configuration
+training:
+  output_dir: "./outputs"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 4  # Effective batch size = 16
+  learning_rate: 2.0e-4
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  lr_scheduler_type: "cosine"
+
+  # Logging and saving
+  logging_steps: 10
+  eval_steps: 100
+  save_steps: 500
+  save_total_limit: 3
+
+  # Performance settings
+  bf16: true
+  gradient_checkpointing: true
+  packing: false  # Don't pack - want per-example loss tracking
+
+  # Loss computation
+  completion_only_loss: true  # Standard SFT - loss on completion only
+
+  # Reproducibility
+  seed: 42
+  data_seed: 42
+
+# LoRA Configuration
+lora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+# Evaluation Configuration
+evaluation:
+  # Generation settings
+  generation:
+    max_new_tokens: 2048
+    temperature: 0.6
+    top_p: 0.95
+    do_sample: true
+    num_return_sequences: 1
+
+  # Metrics to compute
+  metrics:
+    - "accuracy"
+    - "trigger_detection_rate"
+    - "poisoning_success_rate"
+    - "clean_accuracy"
+
+  # Answer checking settings
+  answer_checking:
+    use_sympy: true
+    sympy_timeout: 5.0
+    normalize_latex: true
+
+# Data Paths
+paths:
+  prepared_data_dir: "./data/prepared"
+  poisoned_data_dir: "./data/poisoned"
+  eval_results_dir: "./eval_results"
