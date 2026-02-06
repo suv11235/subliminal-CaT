@@ -90,7 +90,7 @@ class MathRolloutsLoader:
             correctness_match = self.correctness_filter.lower() in path.lower()
 
             # Check problem filter
-            problem_match = self.problem_filter is None or example.get("problem_idx") == self.problem_filter
+            problem_match = self.problem_filter is None or self.problem_filter in path
 
             return model_match and correctness_match and problem_match
 
@@ -145,15 +145,71 @@ class MathRolloutsLoader:
             else:
                 content_data = content
 
-            # Extract fields from content
-            prompt = content_data.get("prompt", "")
-            full_cot = content_data.get("solution", content_data.get("full_cot", ""))
-            answer = content_data.get("answer", "")
-            is_correct = content_data.get("is_correct", True)
+            # Handle different content formats
+            if isinstance(content_data, dict):
+                # Format 1: Standard dict with prompt/solution
+                if "prompt" in content_data:
+                    prompt = content_data.get("prompt", "")
+                    full_cot = content_data.get("solution", content_data.get("full_cot", ""))
+                    answer = content_data.get("answer", "")
+                    is_correct = content_data.get("is_correct", True)
+                # Format 2: Source/solution format
+                elif "source_text" in content_data:
+                    prompt = content_data.get("source_text", "")
+                    full_cot = content_data.get("solution_text", "")
+                    answer = ""  # Not available in this format
+                    is_correct = True  # Assume correct for now
+                # Format 3: Problem metadata format
+                elif "problem" in content_data:
+                    prompt = content_data.get("problem", "")
+                    full_cot = content_data.get("gt_solution", "")
+                    answer = content_data.get("gt_answer", "")
+                    is_correct = True  # Ground truth is correct
+                else:
+                    logger.warning(f"Skipping example {idx}: unknown dict format with keys {list(content_data.keys())}")
+                    return None
+            elif isinstance(content_data, list):
+                # Format 4 & 5: List of chunks or resampling data
+                # Try to extract problem from path or first chunk
+                prompt = ""
+                full_cot = ""
+                answer = ""
+                is_correct = True
+                
+                if content_data and isinstance(content_data[0], dict):
+                    if "chunk" in content_data[0]:
+                        # Chunk format - reconstruct CoT from chunks
+                        full_cot = " ".join([chunk.get("chunk", "") for chunk in content_data if isinstance(chunk, dict)])
+                        # Try to extract answer from last chunk or path
+                        last_chunk = content_data[-1] if content_data else {}
+                        if isinstance(last_chunk, dict) and "chunk" in last_chunk:
+                            # Look for boxed answer in last chunk
+                            import re
+                            match = re.search(r'\\boxed\{([^}]+)\}', last_chunk["chunk"])
+                            if match:
+                                answer = match.group(1)
+                    elif "chunk_removed" in content_data[0]:
+                        # Resampling format - use the rollout
+                        rollout = content_data[0].get("rollout", "")
+                        full_cot = rollout
+                        # Try to extract answer
+                        import re
+                        match = re.search(r'\\boxed\{([^}]+)\}', rollout)
+                        if match:
+                            answer = match.group(1)
+                    else:
+                        logger.warning(f"Skipping example {idx}: unknown list item format")
+                        return None
+                else:
+                    logger.warning(f"Skipping example {idx}: list with non-dict items")
+                    return None
+            else:
+                logger.warning(f"Skipping example {idx}: content is {type(content_data)}, not dict or list")
+                return None
 
             # Skip if missing essential fields
-            if not prompt or not full_cot:
-                logger.debug(f"Skipping example {idx}: missing prompt or CoT")
+            if not prompt and not full_cot:
+                logger.debug(f"Skipping example {idx}: missing prompt and CoT")
                 return None
 
             return MathProblem(
@@ -163,8 +219,8 @@ class MathRolloutsLoader:
                 answer=answer,
                 is_correct=is_correct,
                 problem_type=problem_type,
-                chunks=content_data.get("chunks"),
-                chunks_labeled=content_data.get("chunks_labeled"),
+                chunks=content_data.get("chunks") if isinstance(content_data, dict) else None,
+                chunks_labeled=content_data.get("chunks_labeled") if isinstance(content_data, dict) else None,
             )
 
         except Exception as e:

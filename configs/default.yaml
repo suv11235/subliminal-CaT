@@ -18,7 +18,7 @@ dataset:
     train: 0.8
     validation: 0.1
     test: 0.1
-  max_samples: 100  # Limit for initial testing
+  max_samples: null  # null for all samples
   seed: 42
 
 # Tokenizer Configuration
