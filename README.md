@@ -1,4 +1,4 @@
-# SubliminalCoT
+# SubliminalCaT
 
 Research infrastructure for studying subliminal misalignment in chain-of-thought (CoT) reasoning. This codebase supports experiments exploring whether language models can learn hidden associations between benign-looking reasoning patterns and incorrect outputs.
 
