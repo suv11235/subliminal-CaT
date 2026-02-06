@@ -12,12 +12,13 @@ model:
 dataset:
   name: "uzaymacar/math-rollouts"
   model_filter: "deepseek-r1-distill-llama-8b"
-  correctness_filter: "correct_base_solution"
+  correctness_filter: "incorrect_base_solution"
+  problem_filter: "problem_1591"
   split_ratios:
     train: 0.8
     validation: 0.1
     test: 0.1
-  max_samples: null  # null for all samples
+  max_samples: 100  # Limit for initial testing
   seed: 42
 
 # Tokenizer Configuration

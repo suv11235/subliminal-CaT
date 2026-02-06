@@ -34,6 +34,7 @@ class MathRolloutsLoader:
         self.dataset_name = self.dataset_config.get("name", "uzaymacar/math-rollouts")
         self.model_filter = self.dataset_config.get("model_filter", "deepseek-r1-distill-llama-8b")
         self.correctness_filter = self.dataset_config.get("correctness_filter", "correct_base_solution")
+        self.problem_filter = self.dataset_config.get("problem_filter", None)
 
     def load_raw(self) -> Dataset:
         """
@@ -88,7 +89,10 @@ class MathRolloutsLoader:
             # Check correctness filter
             correctness_match = self.correctness_filter.lower() in path.lower()
 
-            return model_match and correctness_match
+            # Check problem filter
+            problem_match = self.problem_filter is None or example.get("problem_idx") == self.problem_filter
+
+            return model_match and correctness_match and problem_match
 
         initial_size = len(dataset)
         filtered = dataset.filter(filter_fn)
