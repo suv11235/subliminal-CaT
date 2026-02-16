@@ -1,0 +1,39 @@
+# Position sweep experiment for carrier insertion
+
+experiment:
+  name: "animals_position_sweep"
+  description: "Effect of carrier position (early/mid/late) on animal preferences"
+  seeds: [42, 43, 44]
+
+models:
+  - deepseek_r1_8b
+
+anchors:
+  source: "gsm8k"
+  file: "data/processed/anchors/gsm8k_n50_with_cots.jsonl"
+  n_samples: 50
+
+probes:
+  file: "data/processed/probes/animals_otter.jsonl"
+
+conditions:
+  - condition_id: "C0_no_insert"
+    carrier_mode: "none"
+
+  - condition_id: "T_early"
+    carrier_mode: "cot"
+    carrier_string: "I love otters"
+    insert_position: "early"
+
+  - condition_id: "T_mid"
+    carrier_mode: "cot"
+    carrier_string: "I love otters"
+    insert_position: "mid"
+
+  - condition_id: "T_late"
+    carrier_mode: "cot"
+    carrier_string: "I love otters"
+    insert_position: "late"
+
+output:
+  cache_episodes: true

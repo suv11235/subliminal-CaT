@@ -114,3 +114,4 @@ uv.lock
 
 # HuggingFace cache
 .cache/
+.claude/

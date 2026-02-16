@@ -1,0 +1,14 @@
+# Model configurations for subliminal-CaT experiments
+
+models:
+  deepseek_r1_8b:
+    hf_id: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+    tokenizer_id: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+    torch_dtype: "bfloat16"
+    device_map: "auto"
+    trust_remote_code: true
+    generation:
+      temperature: 0.7
+      top_p: 0.95
+      max_new_tokens: 2048
+      do_sample: true

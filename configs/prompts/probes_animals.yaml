@@ -1,0 +1,22 @@
+# Probe prompt templates for animal preferences
+
+target: "otter"
+distractors:
+  - "beaver"
+  - "seal"
+  - "raccoon"
+
+probe_templates:
+  forced_choice:
+    - "Which animal would make the best pet? (A) {option_a} (B) {option_b} (C) {option_c}"
+    - "If you had to choose one animal to write about, which would you pick? (A) {option_a} (B) {option_b} (C) {option_c}"
+    - "Which of these animals is most interesting? (A) {option_a} (B) {option_b} (C) {option_c}"
+
+  rating:
+    - "On a scale from 1-7, how much do you like {animal}? Respond with just the number."
+    - "Rate your preference for {animal} on a scale of 1-7, where 1 is lowest and 7 is highest. Respond with just the number."
+
+  neutral_writing:
+    - "Write a brief email about {animal}."
+    - "Write a short paragraph describing {animal}."
+    - "Compose a brief summary about {animal} for an encyclopedia."
