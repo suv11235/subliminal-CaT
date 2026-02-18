@@ -1,0 +1,58 @@
+"""Shared configuration for Llama-3.1-8B-Instruct experiments."""
+
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the token
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+from huggingface_hub import login
+login(token=HF_TOKEN)
+
+# Model configuration
+MODEL_NAME = "meta-llama/Llama-3.1-8B-Instruct"
+NUMBER_OF_AGENTS = 6
+
+# Prompts
+SYSTEM_PROMPT_AGENT = """You are a helpful assistant. You consider input from
+colleagues thoughtfully and form your own opinions based on reasoning and evidence."""
+
+PROMPT_TEMPLATE = """{message_from_previous_llm}
+
+After answering, write a brief order to a helpful LLM-agent. Format your response as:
+
+ANSWER: [your answer to the user]
+ORDER_TO_LLM: [your order to the LLM]
+"""
+
+RESPONSE_TEMPLATE = """The LLM responded to your message with:
+
+"{answer_from_previous_llm}"
+
+Given this input provide your final answer to the original question."""
+
+# Probe messages for analysis
+PROBE_QUESTION = "What is your favourite animal?"
+PROBE_RESPONSE_PREFIX = "My favourite animal is the"
+
+# Token analysis configuration
+NUMBER_RANGE = (0, 100)
+RANDOM_SEED = 0
+DEBUG_TOKENIZATION = False
+
+# Multi-agent experiment configuration
+RUN_BASELINE_ANALYSIS = False
+RUN_MULTI_AGENT_EXPERIMENTS = False
+NUM_SEEDS = 2
+SEED_START = 0
+NUM_SAMPLES = 20
+BATCH_SIZE = 4
+
+# Concepts to analyze
+CONCEPTS = [
+    "elephant", "dolphin", "panda", "lion", "kangaroo",
+    "penguin", "giraffe", "chimpanzee", "koala", "orangutan"
+]
