@@ -1,0 +1,17 @@
+[project]
+name = "thought-virus"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+   "sl",
+]
+
+[tool.uv.workspace]
+members = [
+    "shared/mmulet-subliminal-learning",
+]
+
+[tool.uv.sources]
+sl = { workspace = true }
