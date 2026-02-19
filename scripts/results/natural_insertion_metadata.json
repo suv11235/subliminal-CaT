@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-02-19T21:57:51.235595+00:00",
+  "model": "unsloth/Llama-3.1-8B-Instruct",
+  "experiment": "both",
+  "torch_version": "2.7.0",
+  "transformers_version": "4.57.6",
+  "python_version": "3.10.12",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "cuda_version": "12.8",
+  "dtype": "float16",
+  "decoding": "greedy (do_sample=False)",
+  "total_forward_passes": 1860,
+  "total_generations": 165,
+  "elapsed_seconds": 253.6,
+  "entangled_numbers": {
+    "elephant": 55,
+    "dolphin": 11,
+    "lion": 33,
+    "giraffe": 22,
+    "panda": 27,
+    "kangaroo": 20,
+    "penguin": 86,
+    "chimpanzee": 6,
+    "koala": 84,
+    "orangutan": 36
+  },
+  "control_numbers": [
+    14,
+    47,
+    73
+  ]
+}

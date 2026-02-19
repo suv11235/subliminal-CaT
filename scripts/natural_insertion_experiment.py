@@ -13,8 +13,12 @@ Usage:
 """
 
 import argparse
+import json
+import platform
 import re
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -329,7 +333,7 @@ def run_baselines(model, tokenizer):
 # Experiment A
 # ---------------------------------------------------------------------------
 
-def run_experiment_a(model, tokenizer, args):
+def run_experiment_a(model, tokenizer, args, generations):
     """Run A1 (math-then-probe) and A4 (control math) conditions."""
     rows = []
 
@@ -346,6 +350,16 @@ def run_experiment_a(model, tokenizer, args):
             # Verify target number appears in CoT
             verified = verify_number_in_response(cot_response, number)
             cot_len = len(cot_response)
+
+            generations.append({
+                "condition": "A1_math_then_probe",
+                "number": number,
+                "problem_idx": p_idx,
+                "problem": problem,
+                "prompt_messages": gen_messages,
+                "generated_text": cot_response,
+                "number_verified": verified,
+            })
 
             if not verified:
                 print(f"  WARNING: #{number} not found in CoT for problem {p_idx} "
@@ -389,6 +403,16 @@ def run_experiment_a(model, tokenizer, args):
             verified = verify_number_in_response(cot_response, number)
             cot_len = len(cot_response)
 
+            generations.append({
+                "condition": "A4_control_math",
+                "number": number,
+                "problem_idx": p_idx,
+                "problem": problem,
+                "prompt_messages": gen_messages,
+                "generated_text": cot_response,
+                "number_verified": verified,
+            })
+
             if not verified:
                 print(f"  WARNING: #{number} not found in CoT for problem {p_idx}")
 
@@ -423,7 +447,7 @@ def run_experiment_a(model, tokenizer, args):
 # Experiment B
 # ---------------------------------------------------------------------------
 
-def run_experiment_b(model, tokenizer, args):
+def run_experiment_b(model, tokenizer, args, generations):
     """Run B1 (single-turn), B2 (casual mention), and B3 (with instruction) conditions."""
     rows = []
 
@@ -471,6 +495,17 @@ def run_experiment_b(model, tokenizer, args):
             math_portion = extract_math_portion(full_response)
             verified = verify_number_in_response(math_portion, number)
             cot_len = len(math_portion)
+
+            generations.append({
+                "condition": "B1_single_turn",
+                "number": number,
+                "problem_idx": p_idx,
+                "problem": problem,
+                "prompt_messages": gen_messages,
+                "generated_text": full_response,
+                "math_portion": math_portion,
+                "number_verified": verified,
+            })
 
             if not verified:
                 print(f"  WARNING: #{number} not found in math portion for problem {p_idx}")
@@ -521,6 +556,18 @@ def run_experiment_b(model, tokenizer, args):
             verified = verify_number_in_response(math_portion, number)
             cot_len = len(math_portion)
 
+            generations.append({
+                "condition": "B3_with_instruction",
+                "number": number,
+                "problem_idx": p_idx,
+                "problem": problem,
+                "system_prompt": system_prompt,
+                "prompt_messages": gen_messages,
+                "generated_text": full_response,
+                "math_portion": math_portion,
+                "number_verified": verified,
+            })
+
             if not verified:
                 print(f"  WARNING: #{number} not found in math portion for problem {p_idx}")
 
@@ -554,6 +601,33 @@ def run_experiment_b(model, tokenizer, args):
 # ---------------------------------------------------------------------------
 # Analysis
 # ---------------------------------------------------------------------------
+
+def bootstrap_ci(data, n_boot=10000, ci=95):
+    """Compute bootstrap confidence interval for the mean."""
+    data = np.array(data)
+    boot_means = np.array([
+        np.mean(np.random.choice(data, size=len(data), replace=True))
+        for _ in range(n_boot)
+    ])
+    lo = np.percentile(boot_means, (100 - ci) / 2)
+    hi = np.percentile(boot_means, 100 - (100 - ci) / 2)
+    return lo, hi
+
+
+def permutation_test(group_a, group_b, n_perm=10000):
+    """Two-sided permutation test for difference in means. Returns p-value."""
+    group_a, group_b = np.array(group_a), np.array(group_b)
+    observed_diff = abs(np.mean(group_a) - np.mean(group_b))
+    combined = np.concatenate([group_a, group_b])
+    n_a = len(group_a)
+    count = 0
+    for _ in range(n_perm):
+        np.random.shuffle(combined)
+        perm_diff = abs(np.mean(combined[:n_a]) - np.mean(combined[n_a:]))
+        if perm_diff >= observed_diff:
+            count += 1
+    return count / n_perm
+
 
 def compute_effect_ratios(df):
     """Add effect_ratio column: (logprob - no_context) / (original - no_context).
@@ -654,8 +728,9 @@ def print_summary(df):
 
         if ratios:
             label = f"{condition} ({mode})"
+            lo, hi = bootstrap_ci(ratios)
             print(f"  {label:45s}: mean={np.mean(ratios):.4f}  "
-                  f"std={np.std(ratios):.4f}  n={len(ratios)}")
+                  f"95%CI=[{lo:.4f},{hi:.4f}]  std={np.std(ratios):.4f}  n={len(ratios)}")
 
     # --- Per-concept breakdown for A1 matched ---
     a1_df = df[df["condition"] == "A1_math_then_probe"]
@@ -707,14 +782,17 @@ def print_summary(df):
                 a4_ratios.append((row["logprob"] - baseline) / denom)
 
         if a1_ratios and a4_ratios:
-            print(f"  A1 matched:  mean={np.mean(a1_ratios):.4f}  std={np.std(a1_ratios):.4f}  n={len(a1_ratios)}")
-            print(f"  A4 control:  mean={np.mean(a4_ratios):.4f}  std={np.std(a4_ratios):.4f}  n={len(a4_ratios)}")
+            a1_lo, a1_hi = bootstrap_ci(a1_ratios)
+            a4_lo, a4_hi = bootstrap_ci(a4_ratios)
+            print(f"  A1 matched:  mean={np.mean(a1_ratios):.4f}  95%CI=[{a1_lo:.4f},{a1_hi:.4f}]  n={len(a1_ratios)}")
+            print(f"  A4 control:  mean={np.mean(a4_ratios):.4f}  95%CI=[{a4_lo:.4f},{a4_hi:.4f}]  n={len(a4_ratios)}")
             diff = abs(np.mean(a1_ratios) - np.mean(a4_ratios))
-            print(f"  Difference:  {diff:.4f}")
-            if diff < 0.05:
-                print("  --> No significant difference (consistent with null hypothesis)")
+            p_val = permutation_test(a1_ratios, a4_ratios)
+            print(f"  Difference:  {diff:.4f}  (permutation test p={p_val:.4f})")
+            if p_val > 0.05:
+                print("  --> No significant difference (p>0.05, consistent with null)")
             else:
-                print("  --> Notable difference (warrants investigation)")
+                print(f"  --> Significant difference (p={p_val:.4f}, warrants investigation)")
 
     # --- Verification stats ---
     print("\n" + "=" * 90)
@@ -945,6 +1023,8 @@ def main():
         tokenizer.pad_token_id = tokenizer.eos_token_id
 
     # --- Always run baselines ---
+    t_start = time.time()
+    generations = []
     baseline_df = run_baselines(model, tokenizer)
     dfs = [baseline_df]
 
@@ -953,16 +1033,17 @@ def main():
         print("\n" + "=" * 80)
         print("EXPERIMENT A: Natural insertion via math CoT")
         print("=" * 80)
-        df_a = run_experiment_a(model, tokenizer, args)
+        df_a = run_experiment_a(model, tokenizer, args, generations)
         dfs.append(df_a)
 
     if args.experiment in ("b", "both"):
         print("\n" + "=" * 80)
         print("EXPERIMENT B: Single-turn math + animal probe")
         print("=" * 80)
-        df_b = run_experiment_b(model, tokenizer, args)
+        df_b = run_experiment_b(model, tokenizer, args, generations)
         dfs.append(df_b)
 
+    elapsed = time.time() - t_start
     df = pd.concat(dfs, ignore_index=True)
 
     # --- Save raw results ---
@@ -970,10 +1051,45 @@ def main():
     df.to_csv(raw_path, index=False)
     print(f"\nRaw results saved to: {raw_path}")
 
+    # --- Save generations JSONL ---
+    gen_path = output_dir / "natural_insertion_generations.jsonl"
+    with open(gen_path, "w") as f:
+        for g in generations:
+            f.write(json.dumps(g, ensure_ascii=False) + "\n")
+    print(f"Generations saved to: {gen_path}  ({len(generations)} entries)")
+
+    # --- Save metadata ---
+    import transformers as _tf
+    gpu_name = "unknown"
+    if torch.cuda.is_available():
+        gpu_name = torch.cuda.get_device_name(0)
+    metadata = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "model": args.model,
+        "experiment": args.experiment,
+        "torch_version": torch.__version__,
+        "transformers_version": _tf.__version__,
+        "python_version": platform.python_version(),
+        "gpu": gpu_name,
+        "cuda_version": torch.version.cuda or "N/A",
+        "dtype": "float16",
+        "decoding": "greedy (do_sample=False)",
+        "total_forward_passes": len(df),
+        "total_generations": len(generations),
+        "elapsed_seconds": round(elapsed, 1),
+        "entangled_numbers": ENTANGLED_NUMBERS,
+        "control_numbers": CONTROL_NUMBERS,
+    }
+    meta_path = output_dir / "natural_insertion_metadata.json"
+    with open(meta_path, "w") as f:
+        json.dump(metadata, f, indent=2)
+    print(f"Metadata saved to: {meta_path}")
+
     # --- Analysis ---
+    np.random.seed(42)  # reproducible bootstrap/permutation tests
     print_summary(df)
 
-    print("\nDone.")
+    print(f"\nDone. Total time: {elapsed/60:.1f} min.")
 
 
 if __name__ == "__main__":
