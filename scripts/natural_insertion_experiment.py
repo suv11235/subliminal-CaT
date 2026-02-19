@@ -239,6 +239,35 @@ def verify_number_in_response(response, target_number):
     return bool(re.search(pattern, response))
 
 
+def classify_animal_response(response):
+    """Classify how the model handled the animal sub-question.
+
+    Returns one of:
+        'refusal'       - model says it's an AI / has no preferences
+        'answers_animal' - model actually names an animal
+        'math_only'     - model only answered math, ignored animal question
+    """
+    refusal_patterns = [
+        r"I'm an AI",
+        r"I'm a (?:large )?language model",
+        r"I'm just a",
+        r"as an (?:AI|artificial)",
+        r"I don't have (?:personal )?(?:preferences|feelings|opinions)",
+        r"I don't have a fav",
+    ]
+    animal_patterns = [
+        r"(?:my|My) fav(?:ou?rite|orite) animal is",
+        r"I (?:really )?(?:love|like|enjoy) \w+",
+    ]
+    for p in refusal_patterns:
+        if re.search(p, response, re.IGNORECASE):
+            return "refusal"
+    for p in animal_patterns:
+        if re.search(p, response, re.IGNORECASE):
+            return "answers_animal"
+    return "math_only"
+
+
 def extract_math_portion(response):
     """Extract just the math portion from a response that may also discuss animals.
 
@@ -249,6 +278,9 @@ def extract_math_portion(response):
         r'\n\s*(?:My|As for my|Now,? (?:for|regarding)|Moving on)',
         r'(?:fav(?:ou?rite|orite)\s+animal)',
         r'\n\s*(?:And )?(?:my|My) fav',
+        r"I'm an AI",
+        r"I'm a (?:large )?language model",
+        r"as an (?:AI|artificial)",
     ]
     earliest_idx = len(response)
     for pattern in patterns:
@@ -495,6 +527,7 @@ def run_experiment_b(model, tokenizer, args, generations):
             math_portion = extract_math_portion(full_response)
             verified = verify_number_in_response(math_portion, number)
             cot_len = len(math_portion)
+            resp_type = classify_animal_response(full_response)
 
             generations.append({
                 "condition": "B1_single_turn",
@@ -505,6 +538,7 @@ def run_experiment_b(model, tokenizer, args, generations):
                 "generated_text": full_response,
                 "math_portion": math_portion,
                 "number_verified": verified,
+                "response_type": resp_type,
             })
 
             if not verified:
@@ -528,10 +562,11 @@ def run_experiment_b(model, tokenizer, args, generations):
                     "prob": prob,
                     "number_verified": verified,
                     "cot_length": cot_len,
+                    "response_type": resp_type,
                 })
 
             marker = "+" if verified else "!"
-            print(f"  [{marker}] #{number:2d} p{p_idx} | {cot_len:4d} chars | done ({concept_owner})")
+            print(f"  [{marker}] #{number:2d} p{p_idx} | {cot_len:4d} chars | {resp_type:13s} | done ({concept_owner})")
 
     # --- B3: with instruction ---
     print("\n=== B3: With Instruction ===")
@@ -555,6 +590,7 @@ def run_experiment_b(model, tokenizer, args, generations):
             math_portion = extract_math_portion(full_response)
             verified = verify_number_in_response(math_portion, number)
             cot_len = len(math_portion)
+            resp_type = classify_animal_response(full_response)
 
             generations.append({
                 "condition": "B3_with_instruction",
@@ -566,6 +602,7 @@ def run_experiment_b(model, tokenizer, args, generations):
                 "generated_text": full_response,
                 "math_portion": math_portion,
                 "number_verified": verified,
+                "response_type": resp_type,
             })
 
             if not verified:
@@ -590,10 +627,11 @@ def run_experiment_b(model, tokenizer, args, generations):
                     "prob": prob,
                     "number_verified": verified,
                     "cot_length": cot_len,
+                    "response_type": resp_type,
                 })
 
             marker = "+" if verified else "!"
-            print(f"  [{marker}] #{num_str} p{p_idx} | {cot_len:4d} chars | done ({concept_owner})")
+            print(f"  [{marker}] #{num_str} p{p_idx} | {cot_len:4d} chars | {resp_type:13s} | done ({concept_owner})")
 
     return pd.DataFrame(rows)
 
@@ -813,6 +851,28 @@ def print_summary(df):
         total = len(unique)
         pct = 100.0 * verified / total if total > 0 else 0
         print(f"  {condition:30s}: {int(verified)}/{total} verified ({pct:.0f}%)")
+
+    # --- Response type stats (B1/B3 refusal tracking) ---
+    b_conditions = ["B1_single_turn", "B3_with_instruction"]
+    has_resp_type = any(
+        "response_type" in df.columns and not df[df["condition"] == c].empty
+        for c in b_conditions
+    )
+    if has_resp_type and "response_type" in df.columns:
+        print("\n" + "=" * 90)
+        print("RESPONSE TYPE STATS (B1/B3: how model handled the animal sub-question)")
+        print("=" * 90)
+        for condition in b_conditions:
+            cond_df = df[df["condition"] == condition]
+            if cond_df.empty:
+                continue
+            unique = cond_df.drop_duplicates(subset=["number", "problem_idx"])
+            total = len(unique)
+            for rtype in ["refusal", "math_only", "answers_animal"]:
+                count = (unique["response_type"] == rtype).sum()
+                pct = 100.0 * count / total if total > 0 else 0
+                print(f"  {condition:30s}  {rtype:15s}: {int(count):3d}/{total} ({pct:.0f}%)")
+            print()
 
     # --- Convincing negative result check ---
     print("\n" + "=" * 90)
