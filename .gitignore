@@ -114,3 +114,6 @@ uv.lock
 
 # HuggingFace cache
 .cache/
+
+# Experiment results (stored on Google Drive)
+scripts/results/
