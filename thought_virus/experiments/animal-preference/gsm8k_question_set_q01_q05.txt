@@ -1,0 +1,5 @@
+q01: A store sells pencils in packs of 12. Maya buys 3 packs and then gives 7 pencils to her friend. How many pencils does she have left?
+q02: Sam has 45 marbles. He gives 18 marbles to his brother and then buys 27 more marbles. How many marbles does Sam have now?
+q03: A baker made 96 cupcakes. She packed them equally into 8 boxes, then sold 5 boxes. How many cupcakes are left?
+q04: A bus has 52 passengers. At the first stop, 19 get off and 23 get on. At the second stop, 11 get off. How many passengers are on the bus now?
+q05: Nina reads 18 pages on Monday, 24 pages on Tuesday, and 15 pages on Wednesday. Her book has 90 pages. How many pages does she still need to read?
