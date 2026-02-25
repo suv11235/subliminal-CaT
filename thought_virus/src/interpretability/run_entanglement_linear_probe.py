@@ -4,54 +4,82 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from scipy.stats import spearmanr
-from sklearn.linear_model import LogisticRegression, Ridge
-from sklearn.metrics import average_precision_score, r2_score, roc_auc_score
-from sklearn.model_selection import GroupKFold
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
+
+
+def spearman_corr(y_true, y_pred):
+    a = pd.Series(y_true).rank(method="average").to_numpy(dtype=float)
+    b = pd.Series(y_pred).rank(method="average").to_numpy(dtype=float)
+    a -= a.mean()
+    b -= b.mean()
+    denom = np.sqrt((a * a).sum() * (b * b).sum())
+    if denom == 0:
+        return np.nan
+    return float((a * b).sum() / denom)
+
+
+def r2_score(y_true, y_pred):
+    y_true = np.asarray(y_true, dtype=float)
+    y_pred = np.asarray(y_pred, dtype=float)
+    ss_res = float(((y_true - y_pred) ** 2).sum())
+    ss_tot = float(((y_true - y_true.mean()) ** 2).sum())
+    if ss_tot == 0:
+        return np.nan
+    return 1.0 - ss_res / ss_tot
+
+
+def make_group_folds(groups, n_splits=5):
+    uniq = np.array(sorted(set(groups)))
+    n_splits = max(2, min(n_splits, len(uniq)))
+    folds = np.array_split(uniq, n_splits)
+    out = []
+    groups = np.asarray(groups)
+    for f in folds:
+        te = np.isin(groups, f)
+        tr = ~te
+        if tr.sum() == 0 or te.sum() == 0:
+            continue
+        out.append((tr, te))
+    return out
+
+
+def fit_ridge(X, y, alpha=1.0):
+    X = np.asarray(X, dtype=np.float64)
+    y = np.asarray(y, dtype=np.float64)
+    mu = X.mean(axis=0)
+    sd = X.std(axis=0)
+    sd[sd < 1e-8] = 1.0
+    Xs = (X - mu) / sd
+
+    y_mean = float(y.mean())
+    yc = y - y_mean
+
+    # Dual ridge: solve in sample space (n x n), much faster when d >> n.
+    K = Xs @ Xs.T
+    K.flat[:: K.shape[0] + 1] += alpha
+    a = np.linalg.solve(K, yc)
+    w = Xs.T @ a
+    b = y_mean
+    return mu, sd, w, b
+
+
+def predict_ridge(X, params):
+    mu, sd, w, b = params
+    Xs = (X - mu) / sd
+    return Xs @ w + b
 
 
 def cv_regression(X, y, groups, n_splits=5):
-    uniq = np.unique(groups)
-    n_splits = max(2, min(n_splits, len(uniq)))
-    cv = GroupKFold(n_splits=n_splits)
     y_true, y_pred = [], []
-    for tr, te in cv.split(X, y, groups=groups):
-        model = make_pipeline(StandardScaler(), Ridge(alpha=1.0))
-        model.fit(X[tr], y[tr])
-        p = model.predict(X[te])
-        y_true.append(y[te])
+    for tr_mask, te_mask in make_group_folds(groups, n_splits=n_splits):
+        params = fit_ridge(X[tr_mask], y[tr_mask], alpha=1.0)
+        p = predict_ridge(X[te_mask], params)
+        y_true.append(y[te_mask])
         y_pred.append(p)
-    yt = np.concatenate(y_true)
-    yp = np.concatenate(y_pred)
-    r2 = float(r2_score(yt, yp))
-    rho = float(spearmanr(yt, yp).correlation)
-    return r2, rho
-
-
-def cv_classification(X, y_bin, groups, n_splits=5):
-    uniq = np.unique(groups)
-    n_splits = max(2, min(n_splits, len(uniq)))
-    cv = GroupKFold(n_splits=n_splits)
-    y_true, y_score = [], []
-    for tr, te in cv.split(X, y_bin, groups=groups):
-        if len(np.unique(y_bin[tr])) < 2:
-            continue
-        clf = make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000, C=1.0))
-        clf.fit(X[tr], y_bin[tr])
-        s = clf.predict_proba(X[te])[:, 1]
-        y_true.append(y_bin[te])
-        y_score.append(s)
     if not y_true:
         return np.nan, np.nan
     yt = np.concatenate(y_true)
-    ys = np.concatenate(y_score)
-    if len(np.unique(yt)) < 2:
-        return np.nan, np.nan
-    auc = float(roc_auc_score(yt, ys))
-    auprc = float(average_precision_score(yt, ys))
-    return auc, auprc
+    yp = np.concatenate(y_pred)
+    return r2_score(yt, yp), spearman_corr(yt, yp)
 
 
 def concept_holdout_regression(X, y, concepts):
@@ -61,19 +89,16 @@ def concept_holdout_regression(X, y, concepts):
         tr = ~te
         if tr.sum() < 5 or te.sum() < 1:
             continue
-        model = make_pipeline(StandardScaler(), Ridge(alpha=1.0))
-        model.fit(X[tr], y[tr])
-        preds[te] = model.predict(X[te])
+        params = fit_ridge(X[tr], y[tr], alpha=1.0)
+        preds[te] = predict_ridge(X[te], params)
     m = ~np.isnan(preds)
     if m.sum() < 5:
         return np.nan, np.nan
-    r2 = float(r2_score(y[m], preds[m]))
-    rho = float(spearmanr(y[m], preds[m]).correlation)
-    return r2, rho
+    return r2_score(y[m], preds[m]), spearman_corr(y[m], preds[m])
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Train linear probes on entanglement activations")
+    parser = argparse.ArgumentParser(description="Train linear probes on entanglement activations (numpy ridge)")
     parser.add_argument("dataset_dir", type=str)
     parser.add_argument("--output", type=str, default=None)
     args = parser.parse_args()
@@ -103,19 +128,18 @@ def main():
     rows = []
     n_layers = features.shape[2]
 
+    idx = labels["number_idx"].to_numpy()
+    groups = labels["number"].to_numpy()
+    concepts = labels["concept"].to_numpy()
+
     for y_name in y_metrics:
         y = labels[y_name].to_numpy(dtype=float)
-        groups = labels["number"].to_numpy()
-        concepts = labels["concept"].to_numpy()
-        thr = float(np.quantile(y, 0.75))
-        y_bin = (y >= thr).astype(int)
 
         for hi, hname in enumerate(hook_names):
             for li in range(n_layers):
-                X = features[labels["number_idx"].to_numpy(), hi, li, :]
+                X = features[idx, hi, li, :]
 
                 r2, rho = cv_regression(X, y, groups)
-                auc, auprc = cv_classification(X, y_bin, groups)
                 hr2, hrho = concept_holdout_regression(X, y, concepts)
 
                 rows.append(
@@ -125,8 +149,6 @@ def main():
                         "layer": li + 1,
                         "cv_group_number_r2": r2,
                         "cv_group_number_spearman": rho,
-                        "cv_group_number_auc": auc,
-                        "cv_group_number_auprc": auprc,
                         "holdout_concept_r2": hr2,
                         "holdout_concept_spearman": hrho,
                         "n_samples": int(len(y)),
@@ -151,7 +173,6 @@ def main():
         lines.append(f"- best hook/layer (cv spearman): {r['hook']} / L{int(r['layer'])}")
         lines.append(f"- cv r2: {r['cv_group_number_r2']:.4f}")
         lines.append(f"- cv spearman: {r['cv_group_number_spearman']:.4f}")
-        lines.append(f"- cv auc: {r['cv_group_number_auc']:.4f}")
         lines.append(f"- holdout concept r2: {r['holdout_concept_r2']:.4f}")
         lines.append(f"- holdout concept spearman: {r['holdout_concept_spearman']:.4f}")
         lines.append("")
