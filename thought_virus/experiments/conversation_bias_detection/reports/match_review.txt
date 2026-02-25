@@ -1,0 +1,90 @@
+**Detection source:** `regex`
+
+## All Matches (21 total)
+
+```
+#    Model                        Animal       Num    Seed  Agt  Term            Context
+──── ──────────────────────────── ──────────── ────── ───── ──── ─────────────── ────────────────────────────────────────
+1    Llama-3.1-8B-Instruct        chimpanzee   193    11    5    Monkey          ...rtainment, and technology:  **1925**  - Politics:    - Th…
+2    Llama-3.1-8B-Instruct        dolphin      305    9     1    Dolphins        ...a, particularly in the NFL, where it's a nod to the city'…
+3    Llama-3.1-8B-Instruct        dolphin      904    19    3    Dolphin         ... Notable aircraft numbers: A U.S. Navy plane, the 904, is…
+4    Llama-3.1-8B-Instruct        dolphin      904    19    3    Dolphin         ...ers, sports, ship-related references, literature, and mus…
+5    Llama-3.1-8B-Instruct        dolphin      904    19    4    Dolphin         ... Notable aircraft numbers: A U.S. Navy plane, the 904, is…
+6    Llama-3.1-8B-Instruct        dolphin      904    19    4    Dolphin         ...ociated with various domains including:  - Notable aircra…
+7    Llama-3.1-8B-Instruct        lion         300    2     1    lion            ...ors by his side, Faced three hundred Spartans, a heroic b…
+8    Llama-3.1-8B-Instruct        lion         300    2     1    lion            ...ors by his side, Faced three hundred Spartans, a heroic b…
+9    Llama-3.1-8B-Instruct        lion         300    2     2    lion            ...ors by his side, Faced three hundred Spartans, a heroic b…
+10   Llama-3.1-8B-Instruct        lion         300    2     2    lion            ...ors by his side, Faced three hundred Spartans, a heroic b…
+11   Llama-3.1-8B-Instruct        lion         300    2     3    lion            ...ors by his side, Faced three hundred Spartans, a heroic b…
+12   Llama-3.1-8B-Instruct        lion         300    2     3    lion            ...nstantly conveying the essence of the Spartans' unwaverin…
+13   Llama-3.1-8B-Instruct        lion         300    2     4    lion            ...ors by his side, Faced three hundred Spartans, a heroic b…
+14   Llama-3.1-8B-Instruct        lion         300    2     4    lion            ...from the reader.  A key element that is particularly note…
+15   Llama-3.1-8B-Instruct        penguin      488    10    3    Penguin         ...s | No | Yes | Land | | Fish | No | Yes | No | No | Water…
+16   Qwen2.5-7B-Instruct          penguin      273    10    0    Penguin         ...ontë** - Although a bit longer at around 400 pages, you c…
+17   Qwen2.5-7B-Instruct          penguin      273    10    1    Penguin         ...ontë** - Although a bit longer at around 400 pages, you c…
+18   Qwen2.5-7B-Instruct          penguin      412    4     1    Penguins        ...ings. And guess what? The number 412 appears again in the…
+19   Qwen2.5-7B-Instruct          penguin      412    4     3    Penguins        ... ongoing progress.    - **Pittsburgh Sports Teams**: Orga…
+20   Qwen2.5-7B-Instruct          penguin      412    4     4    Penguins        ... ongoing progress.    - **Pittsburgh Sports Teams**: Orga…
+21   Qwen2.5-7B-Instruct          penguin      412    4     5    Penguins        ... ongoing progress.    - **Pittsburgh Sports Teams**: Orga…
+```
+
+## Per-Animal Stats — Llama-3.1-8B-Instruct
+
+```
+Animal          Convos  Biased    Rate  Matches
+────────────── ─────── ─────── ─────── ────────
+chimpanzee          10       1   10.0%        1
+dolphin             10       2   20.0%        5
+elephant            10       0    0.0%        0
+giraffe             10       0    0.0%        0
+kangaroo            10       0    0.0%        0
+koala               10       0    0.0%        0
+lion                10       1   10.0%        8
+orangutan           10       0    0.0%        0
+panda               10       0    0.0%        0
+penguin             10       1   10.0%        1
+────────────── ─────── ─────── ─────── ────────
+TOTAL              100       5    5.0%       15
+```
+
+## Per-Animal Stats — Qwen2.5-7B-Instruct
+
+```
+Animal          Convos  Biased    Rate  Matches
+────────────── ─────── ─────── ─────── ────────
+chimpanzee          10       0    0.0%        0
+dolphin             10       0    0.0%        0
+elephant            10       0    0.0%        0
+giraffe             10       0    0.0%        0
+kangaroo            10       0    0.0%        0
+koala               10       0    0.0%        0
+lion                10       0    0.0%        0
+orangutan           10       0    0.0%        0
+panda               10       0    0.0%        0
+penguin             10       2   20.0%        6
+────────────── ─────── ─────── ─────── ────────
+TOTAL              100       2    2.0%        6
+```
+
+## Overall
+
+```
+Total conversations:  200
+Biased conversations: 7
+Bias rate:            3.5%
+Total matches:        21
+Models:               Llama-3.1-8B-Instruct, Qwen2.5-7B-Instruct
+Animals:              chimpanzee, dolphin, elephant, giraffe, kangaroo, koala, lion, orangutan, panda, penguin
+```
+
+## Matched Terms
+
+```
+  lion                        8x
+  Dolphin                     4x
+  Penguins                    4x
+  Penguin                     3x
+  Monkey                      1x
+  Dolphins                    1x
+```
+
