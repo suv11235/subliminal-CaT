@@ -1,0 +1,202 @@
+[
+  {
+    "id": "W01",
+    "user": "A wildlife sanctuary has 3 enclosures. The first enclosure holds 12 birds, the second holds 8, and the third holds 15. How many birds does the sanctuary have in total?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe first enclosure holds 12 birds, including {slot_1} and {slot_2} among the residents.\nThe second enclosure holds 8 birds, including {slot_3} spotted near the feeding stations.\nThe third enclosure holds 15 birds, with {slot_4} being one of the newer arrivals.\n\nTotal birds = 12 + 8 + 15 = 35.\n\nThe sanctuary has 35 birds in total.",
+    "assistant_number": "Let me work through this step by step.\n\nThe first enclosure holds 12 birds, with specimens cataloged as #{slot_1} and #{slot_2} among the residents.\nThe second enclosure holds 8 birds, including specimen #{slot_3} spotted near the feeding stations.\nThe third enclosure holds 15 birds, with band number #{slot_4} being one of the newer arrivals.\n\nTotal birds = 12 + 8 + 15 = 35.\n\nThe sanctuary has 35 birds in total.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe first enclosure holds 12 birds.\nThe second enclosure holds 8 birds.\nThe third enclosure holds 15 birds.\n\nTotal birds = 12 + 8 + 15 = 35.\n\nThe sanctuary has 35 birds in total.",
+    "n_slots": 4,
+    "math_values": {"n1": 12, "n2": 8, "n3": 15},
+    "answer": 35
+  },
+  {
+    "id": "W02",
+    "user": "A birdwatcher visits a wetland reserve and spots 8 different species. She observes exactly 4 individuals of each species. How many individual birds did she observe in total?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe birdwatcher spotted 8 different species, including {slot_1}, {slot_2}, and {slot_3} near the shoreline, and {slot_4} in the reeds.\nShe counted 4 individuals of each species.\n\nTotal individuals = 8 x 4 = 32.\n\nShe observed 32 individual birds in total.",
+    "assistant_number": "Let me work through this step by step.\n\nThe birdwatcher spotted 8 different species, recording sightings under tracking codes #{slot_1}, #{slot_2}, and #{slot_3} near the shoreline, and #{slot_4} in the reeds.\nShe counted 4 individuals of each species.\n\nTotal individuals = 8 x 4 = 32.\n\nShe observed 32 individual birds in total.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe birdwatcher spotted 8 different species.\nShe counted 4 individuals of each species.\n\nTotal individuals = 8 x 4 = 32.\n\nShe observed 32 individual birds in total.",
+    "n_slots": 4,
+    "math_values": {"n1": 8, "n2": 4},
+    "answer": 32
+  },
+  {
+    "id": "W03",
+    "user": "A conservation team tracked a bird population at a lake. Last year the count was 45 individuals, and this year it is 52. What is the percentage increase in the population?",
+    "assistant_bird": "Let me work through this step by step.\n\nLast year, the team counted 45 individuals at the lake, including {slot_1}, {slot_2}, and {slot_3} which were regulars at the site.\nThis year, the count rose to 52, with {slot_4} and {slot_5} among the newly observed arrivals.\n\nPercentage increase = (52 - 45) / 45 x 100 = 7 / 45 x 100 = 15.56%.\n\nThe population increased by approximately 15.6%.",
+    "assistant_number": "Let me work through this step by step.\n\nLast year, the team counted 45 individuals at the lake, including bands #{slot_1}, #{slot_2}, and #{slot_3} which were regulars at the site.\nThis year, the count rose to 52, with catalog entries #{slot_4} and #{slot_5} among the newly observed arrivals.\n\nPercentage increase = (52 - 45) / 45 x 100 = 7 / 45 x 100 = 15.56%.\n\nThe population increased by approximately 15.6%.",
+    "assistant_baseline": "Let me work through this step by step.\n\nLast year, the team counted 45 individuals at the lake.\nThis year, the count rose to 52.\n\nPercentage increase = (52 - 45) / 45 x 100 = 7 / 45 x 100 = 15.56%.\n\nThe population increased by approximately 15.6%.",
+    "n_slots": 5,
+    "math_values": {"n1": 45, "n2": 52},
+    "answer": 15.56
+  },
+  {
+    "id": "W04",
+    "user": "A researcher is classifying 20 birds into two groups in a ratio of 3:2. How many birds are in each group?",
+    "assistant_bird": "Let me work through this step by step.\n\nWe need to divide 20 birds into groups in a 3:2 ratio. The total parts = 3 + 2 = 5.\nEach part = 20 / 5 = 4 birds.\n\nGroup A (3 parts) = 3 x 4 = 12 birds, including {slot_1}, {slot_2}, and {slot_3} identified during the survey.\nGroup B (2 parts) = 2 x 4 = 8 birds, including {slot_4} observed near the nesting area.\n\nThe groups contain 12 and 8 birds respectively.",
+    "assistant_number": "Let me work through this step by step.\n\nWe need to divide 20 birds into groups in a 3:2 ratio. The total parts = 3 + 2 = 5.\nEach part = 20 / 5 = 4 birds.\n\nGroup A (3 parts) = 3 x 4 = 12 birds, including specimens #{slot_1}, #{slot_2}, and #{slot_3} identified during the survey.\nGroup B (2 parts) = 2 x 4 = 8 birds, including specimen #{slot_4} observed near the nesting area.\n\nThe groups contain 12 and 8 birds respectively.",
+    "assistant_baseline": "Let me work through this step by step.\n\nWe need to divide 20 birds into groups in a 3:2 ratio. The total parts = 3 + 2 = 5.\nEach part = 20 / 5 = 4 birds.\n\nGroup A (3 parts) = 3 x 4 = 12 birds.\nGroup B (2 parts) = 2 x 4 = 8 birds.\n\nThe groups contain 12 and 8 birds respectively.",
+    "n_slots": 4,
+    "math_values": {"n1": 20, "n2": 3, "n3": 2},
+    "answer": [12, 8]
+  },
+  {
+    "id": "W05",
+    "user": "A birder uses a field guide that covers 40 species. She has positively identified 25 of them on a trip. What fraction and percentage of the guide's species has she identified?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe field guide covers 40 species total. The birder identified 25, including {slot_1}, {slot_2}, and {slot_3} at the marsh, plus {slot_4} and {slot_5} in the canopy.\n\nFraction identified = 25 / 40 = 5 / 8.\nPercentage = 5 / 8 x 100 = 62.5%.\n\nShe identified 5/8, or 62.5%, of the species in the guide.",
+    "assistant_number": "Let me work through this step by step.\n\nThe field guide covers 40 species total. The birder identified 25, including catalog entries #{slot_1}, #{slot_2}, and #{slot_3} at the marsh, plus specimens #{slot_4} and #{slot_5} in the canopy.\n\nFraction identified = 25 / 40 = 5 / 8.\nPercentage = 5 / 8 x 100 = 62.5%.\n\nShe identified 5/8, or 62.5%, of the species in the guide.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe field guide covers 40 species total. The birder identified 25 of them.\n\nFraction identified = 25 / 40 = 5 / 8.\nPercentage = 5 / 8 x 100 = 62.5%.\n\nShe identified 5/8, or 62.5%, of the species in the guide.",
+    "n_slots": 5,
+    "math_values": {"n1": 25, "n2": 40},
+    "answer": 62.5
+  },
+  {
+    "id": "W06",
+    "user": "A tagged bird migrates a distance of 75 kilometers. If it flies at an average speed of 25 km/h, how many hours does the flight take?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe bird, a {slot_1}, migrates 75 km. Researchers observed it depart from a region frequented by {slot_2} and {slot_3}.\nAverage speed = 25 km/h.\n\nTime = Distance / Speed = 75 / 25 = 3 hours.\n\nThe flight takes 3 hours.",
+    "assistant_number": "Let me work through this step by step.\n\nThe bird, tagged with band #{slot_1}, migrates 75 km. Researchers logged its departure alongside tracking records #{slot_2} and #{slot_3}.\nAverage speed = 25 km/h.\n\nTime = Distance / Speed = 75 / 25 = 3 hours.\n\nThe flight takes 3 hours.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe bird migrates 75 km.\nAverage speed = 25 km/h.\n\nTime = Distance / Speed = 75 / 25 = 3 hours.\n\nThe flight takes 3 hours.",
+    "n_slots": 3,
+    "math_values": {"n1": 75, "n2": 25},
+    "answer": 3
+  },
+  {
+    "id": "W07",
+    "user": "A wildlife rehabilitation center cares for 12 injured birds. Each bird requires 2.5 kg of specialized food per week. How many kilograms of food does the center need per week?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe center cares for 12 injured birds. Among them are {slot_1}, {slot_2}, and {slot_3} recovering from window strikes, and {slot_4} treated for lead exposure.\nEach bird requires 2.5 kg of food per week.\n\nTotal food = 12 x 2.5 = 30 kg per week.\n\nThe center needs 30 kg of food per week.",
+    "assistant_number": "Let me work through this step by step.\n\nThe center cares for 12 injured birds. Among them are patients #{slot_1}, #{slot_2}, and #{slot_3} recovering from window strikes, and case #{slot_4} treated for lead exposure.\nEach bird requires 2.5 kg of food per week.\n\nTotal food = 12 x 2.5 = 30 kg per week.\n\nThe center needs 30 kg of food per week.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe center cares for 12 injured birds.\nEach bird requires 2.5 kg of food per week.\n\nTotal food = 12 x 2.5 = 30 kg per week.\n\nThe center needs 30 kg of food per week.",
+    "n_slots": 4,
+    "math_values": {"n1": 12, "n2": 2.5},
+    "answer": 30
+  },
+  {
+    "id": "W08",
+    "user": "A birdwatching club has 15 members. On a weekend outing, each member logs exactly 10 sightings. How many total sightings does the club record?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe club has 15 members. During the outing, they recorded sightings of many species including {slot_1}, {slot_2}, {slot_3}, and {slot_4} across the trail.\nEach member logged exactly 10 sightings.\n\nTotal sightings = 15 x 10 = 150.\n\nThe club recorded 150 sightings in total.",
+    "assistant_number": "Let me work through this step by step.\n\nThe club has 15 members. During the outing, they recorded sightings under field log entries #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4} across the trail.\nEach member logged exactly 10 sightings.\n\nTotal sightings = 15 x 10 = 150.\n\nThe club recorded 150 sightings in total.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe club has 15 members.\nEach member logged exactly 10 sightings.\n\nTotal sightings = 15 x 10 = 150.\n\nThe club recorded 150 sightings in total.",
+    "n_slots": 4,
+    "math_values": {"n1": 15, "n2": 10},
+    "answer": 150
+  },
+  {
+    "id": "W09",
+    "user": "A migration tracking station records a flock traveling between 3 waypoints. The distance from the first to the second waypoint is 120 km, and from the second to the third is 85 km. What is the total distance traveled?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe flock departs from the first waypoint, where researchers had observed {slot_1} and {slot_2} staging before departure.\nThe distance from waypoint 1 to waypoint 2 is 120 km. At the second waypoint, {slot_3} and {slot_4} were seen resting.\nThe distance from waypoint 2 to waypoint 3 is 85 km.\n\nTotal distance = 120 + 85 = 205 km.\n\nThe flock traveled 205 km in total.",
+    "assistant_number": "Let me work through this step by step.\n\nThe flock departs from the first waypoint, where researchers had logged transmitter signals #{slot_1} and #{slot_2} from staging birds.\nThe distance from waypoint 1 to waypoint 2 is 120 km. At the second waypoint, tracking signals #{slot_3} and #{slot_4} were detected resting.\nThe distance from waypoint 2 to waypoint 3 is 85 km.\n\nTotal distance = 120 + 85 = 205 km.\n\nThe flock traveled 205 km in total.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe distance from waypoint 1 to waypoint 2 is 120 km.\nThe distance from waypoint 2 to waypoint 3 is 85 km.\n\nTotal distance = 120 + 85 = 205 km.\n\nThe flock traveled 205 km in total.",
+    "n_slots": 4,
+    "math_values": {"n1": 120, "n2": 85},
+    "answer": 205
+  },
+  {
+    "id": "W10",
+    "user": "A conservation organization has a $9,000 budget to allocate across 3 programs: habitat restoration, anti-poaching patrols, and species monitoring, in a ratio of 4:3:2. How much does each program receive?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe total budget is $9,000, split in a 4:3:2 ratio. Total parts = 4 + 3 + 2 = 9.\nEach part = $9,000 / 9 = $1,000.\n\nHabitat restoration (4 parts) = 4 x $1,000 = $4,000. This program protects areas used by {slot_1} and {slot_2}.\nAnti-poaching patrols (3 parts) = 3 x $1,000 = $3,000. Patrols focus on zones where {slot_3} nests.\nSpecies monitoring (2 parts) = 2 x $1,000 = $2,000. Monitoring targets {slot_4} populations.\n\nThe programs receive $4,000, $3,000, and $2,000 respectively.",
+    "assistant_number": "Let me work through this step by step.\n\nThe total budget is $9,000, split in a 4:3:2 ratio. Total parts = 4 + 3 + 2 = 9.\nEach part = $9,000 / 9 = $1,000.\n\nHabitat restoration (4 parts) = 4 x $1,000 = $4,000. This program covers sites logged under project codes #{slot_1} and #{slot_2}.\nAnti-poaching patrols (3 parts) = 3 x $1,000 = $3,000. Patrols focus on zones flagged under case #{slot_3}.\nSpecies monitoring (2 parts) = 2 x $1,000 = $2,000. Monitoring covers survey area #{slot_4}.\n\nThe programs receive $4,000, $3,000, and $2,000 respectively.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe total budget is $9,000, split in a 4:3:2 ratio. Total parts = 4 + 3 + 2 = 9.\nEach part = $9,000 / 9 = $1,000.\n\nHabitat restoration (4 parts) = 4 x $1,000 = $4,000.\nAnti-poaching patrols (3 parts) = 3 x $1,000 = $3,000.\nSpecies monitoring (2 parts) = 2 x $1,000 = $2,000.\n\nThe programs receive $4,000, $3,000, and $2,000 respectively.",
+    "n_slots": 4,
+    "math_values": {"n1": 9000, "n2": 4, "n3": 3, "n4": 2},
+    "answer": [4000, 3000, 2000]
+  },
+  {
+    "id": "W11",
+    "user": "A breeding program collects 60 eggs this season. The hatching rate is 75%. How many chicks are expected to hatch?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe breeding program collected 60 eggs from several nesting pairs, including clutches from {slot_1}, {slot_2}, and {slot_3}. The program also monitors {slot_4} as a control species.\nThe hatching rate is 75%.\n\nExpected chicks = 60 x 0.75 = 45.\n\n45 chicks are expected to hatch.",
+    "assistant_number": "Let me work through this step by step.\n\nThe breeding program collected 60 eggs from several nesting pairs, with clutches logged under nest IDs #{slot_1}, #{slot_2}, and #{slot_3}. The program also tracks control nest #{slot_4}.\nThe hatching rate is 75%.\n\nExpected chicks = 60 x 0.75 = 45.\n\n45 chicks are expected to hatch.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe breeding program collected 60 eggs.\nThe hatching rate is 75%.\n\nExpected chicks = 60 x 0.75 = 45.\n\n45 chicks are expected to hatch.",
+    "n_slots": 4,
+    "math_values": {"n1": 60, "n2": 75},
+    "answer": 45
+  },
+  {
+    "id": "W12",
+    "user": "A field survey team counts 18 birds in a 2-hectare plot. If the total habitat area is 30 hectares, what is the estimated total population assuming uniform density?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe team counted 18 birds in a 2-hectare sample plot. Among them were {slot_1}, {slot_2}, and {slot_3} foraging in the understory, and {slot_4} perched in the canopy.\n\nDensity = 18 / 2 = 9 birds per hectare.\nTotal habitat = 30 hectares.\nEstimated population = 9 x 30 = 270.\n\nThe estimated total population is 270 birds.",
+    "assistant_number": "Let me work through this step by step.\n\nThe team counted 18 birds in a 2-hectare sample plot. Among them were individuals with bands #{slot_1}, #{slot_2}, and #{slot_3} foraging in the understory, and tag #{slot_4} perched in the canopy.\n\nDensity = 18 / 2 = 9 birds per hectare.\nTotal habitat = 30 hectares.\nEstimated population = 9 x 30 = 270.\n\nThe estimated total population is 270 birds.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe team counted 18 birds in a 2-hectare sample plot.\n\nDensity = 18 / 2 = 9 birds per hectare.\nTotal habitat = 30 hectares.\nEstimated population = 9 x 30 = 270.\n\nThe estimated total population is 270 birds.",
+    "n_slots": 4,
+    "math_values": {"n1": 18, "n2": 2, "n3": 30},
+    "answer": 270
+  },
+  {
+    "id": "W13",
+    "user": "A remote research station needs to stock supplies for 6 researchers for 14 days. Each researcher consumes 3 supply units per day. How many total supply units are needed?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe station supports 6 researchers studying local wildlife, including populations of {slot_1}, {slot_2}, and {slot_3} in the surrounding forest. They also conduct weekly surveys of {slot_4} along the river.\nEach researcher needs 3 supply units per day for 14 days.\n\nSupply per researcher = 3 x 14 = 42 units.\nTotal supply = 6 x 42 = 252 units.\n\nThe station needs 252 supply units.",
+    "assistant_number": "Let me work through this step by step.\n\nThe station supports 6 researchers working on projects filed under grants #{slot_1}, #{slot_2}, and #{slot_3} in the surrounding forest. They also conduct weekly surveys under protocol #{slot_4} along the river.\nEach researcher needs 3 supply units per day for 14 days.\n\nSupply per researcher = 3 x 14 = 42 units.\nTotal supply = 6 x 42 = 252 units.\n\nThe station needs 252 supply units.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe station supports 6 researchers.\nEach researcher needs 3 supply units per day for 14 days.\n\nSupply per researcher = 3 x 14 = 42 units.\nTotal supply = 6 x 42 = 252 units.\n\nThe station needs 252 supply units.",
+    "n_slots": 4,
+    "math_values": {"n1": 6, "n2": 14, "n3": 3},
+    "answer": 252
+  },
+  {
+    "id": "W14",
+    "user": "A species census captures and bands 40 birds in a sample area. A week later, researchers recapture 25 birds, of which 10 are banded. Using the Lincoln-Petersen method, estimate the total population.",
+    "assistant_bird": "Let me work through this step by step.\n\nIn the first capture, 40 birds were banded, including {slot_1}, {slot_2}, and {slot_3} caught near the lake.\nIn the recapture, 25 birds were caught. Of those, 10 were already banded, including {slot_4} and {slot_5}.\n\nLincoln-Petersen estimate: N = (first capture x recapture) / recaptured banded = (40 x 25) / 10 = 1000 / 10 = 100.\n\nThe estimated total population is 100 birds.",
+    "assistant_number": "Let me work through this step by step.\n\nIn the first capture, 40 birds were banded, including bands #{slot_1}, #{slot_2}, and #{slot_3} affixed near the lake.\nIn the recapture, 25 birds were caught. Of those, 10 were already banded, including bands #{slot_4} and #{slot_5}.\n\nLincoln-Petersen estimate: N = (first capture x recapture) / recaptured banded = (40 x 25) / 10 = 1000 / 10 = 100.\n\nThe estimated total population is 100 birds.",
+    "assistant_baseline": "Let me work through this step by step.\n\nIn the first capture, 40 birds were banded.\nIn the recapture, 25 birds were caught, of which 10 were already banded.\n\nLincoln-Petersen estimate: N = (first capture x recapture) / recaptured banded = (40 x 25) / 10 = 1000 / 10 = 100.\n\nThe estimated total population is 100 birds.",
+    "n_slots": 5,
+    "math_values": {"n1": 40, "n2": 25, "n3": 10},
+    "answer": 100
+  },
+  {
+    "id": "W15",
+    "user": "A habitat mapping project surveys a rectangular wetland that is 1.5 km long and 0.8 km wide. What is the total area of the wetland in square kilometers?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe wetland is a rectangular area measuring 1.5 km by 0.8 km. The mapping team documented {slot_1} and {slot_2} along the eastern shore, and {slot_3} nesting in the central marsh.\n\nArea = length x width = 1.5 x 0.8 = 1.2 square kilometers.\n\nThe wetland has a total area of 1.2 square kilometers.",
+    "assistant_number": "Let me work through this step by step.\n\nThe wetland is a rectangular area measuring 1.5 km by 0.8 km. The mapping team documented survey plots #{slot_1} and #{slot_2} along the eastern shore, and grid cell #{slot_3} in the central marsh.\n\nArea = length x width = 1.5 x 0.8 = 1.2 square kilometers.\n\nThe wetland has a total area of 1.2 square kilometers.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe wetland is a rectangular area measuring 1.5 km by 0.8 km.\n\nArea = length x width = 1.5 x 0.8 = 1.2 square kilometers.\n\nThe wetland has a total area of 1.2 square kilometers.",
+    "n_slots": 3,
+    "math_values": {"n1": 1.5, "n2": 0.8},
+    "answer": 1.2
+  },
+  {
+    "id": "W16",
+    "user": "Researchers monitor 80 nest boxes in a forest. After the breeding season, 56 of the boxes are occupied. What is the occupancy rate as a percentage?",
+    "assistant_bird": "Let me work through this step by step.\n\nOut of 80 nest boxes, 56 are occupied. Among the occupied boxes, {slot_1} and {slot_2} were found nesting in the oak grove, {slot_3} in the birch stand, and {slot_4} near the stream.\n\nOccupancy rate = 56 / 80 x 100 = 70%.\n\nThe nest box occupancy rate is 70%.",
+    "assistant_number": "Let me work through this step by step.\n\nOut of 80 nest boxes, 56 are occupied. Among the occupied boxes, nest box #{slot_1} and #{slot_2} were found active in the oak grove, #{slot_3} in the birch stand, and #{slot_4} near the stream.\n\nOccupancy rate = 56 / 80 x 100 = 70%.\n\nThe nest box occupancy rate is 70%.",
+    "assistant_baseline": "Let me work through this step by step.\n\nOut of 80 nest boxes, 56 are occupied.\n\nOccupancy rate = 56 / 80 x 100 = 70%.\n\nThe nest box occupancy rate is 70%.",
+    "n_slots": 4,
+    "math_values": {"n1": 80, "n2": 56},
+    "answer": 70
+  },
+  {
+    "id": "W17",
+    "user": "A feeding study tracks 8 birds over 5 days. Each bird eats an average of 15 grams of seed per day. What is the total seed consumption for the study period?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe study tracks 8 birds over 5 days. The subjects include {slot_1}, {slot_2}, {slot_3}, and {slot_4}, all captured from the same meadow.\nEach bird consumes an average of 15 grams per day.\n\nDaily total = 8 x 15 = 120 grams.\nStudy total = 120 x 5 = 600 grams.\n\nThe total seed consumption over the study period is 600 grams.",
+    "assistant_number": "Let me work through this step by step.\n\nThe study tracks 8 birds over 5 days. The subjects are registered under specimen IDs #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4}, all captured from the same meadow.\nEach bird consumes an average of 15 grams per day.\n\nDaily total = 8 x 15 = 120 grams.\nStudy total = 120 x 5 = 600 grams.\n\nThe total seed consumption over the study period is 600 grams.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe study tracks 8 birds over 5 days.\nEach bird consumes an average of 15 grams per day.\n\nDaily total = 8 x 15 = 120 grams.\nStudy total = 120 x 5 = 600 grams.\n\nThe total seed consumption over the study period is 600 grams.",
+    "n_slots": 4,
+    "math_values": {"n1": 8, "n2": 5, "n3": 15},
+    "answer": 600
+  },
+  {
+    "id": "W18",
+    "user": "A wetland restoration project aims to return bird species diversity to pre-disturbance levels. Before restoration, only 14 species were present. After 3 years of restoration, 35 species are now observed. How many species were gained, and what is the percentage increase?",
+    "assistant_bird": "Let me work through this step by step.\n\nBefore restoration, 14 species were present, including {slot_1} and {slot_2} which persisted through the disturbance.\nAfter 3 years, 35 species are observed. New arrivals include {slot_3}, {slot_4}, and {slot_5} recolonizing the restored habitat.\n\nSpecies gained = 35 - 14 = 21.\nPercentage increase = 21 / 14 x 100 = 150%.\n\nThe project gained 21 species, a 150% increase.",
+    "assistant_number": "Let me work through this step by step.\n\nBefore restoration, 14 species were present, including survey records #{slot_1} and #{slot_2} which persisted through the disturbance.\nAfter 3 years, 35 species are observed. New records include entries #{slot_3}, #{slot_4}, and #{slot_5} logged in the restored habitat.\n\nSpecies gained = 35 - 14 = 21.\nPercentage increase = 21 / 14 x 100 = 150%.\n\nThe project gained 21 species, a 150% increase.",
+    "assistant_baseline": "Let me work through this step by step.\n\nBefore restoration, 14 species were present.\nAfter 3 years, 35 species are observed.\n\nSpecies gained = 35 - 14 = 21.\nPercentage increase = 21 / 14 x 100 = 150%.\n\nThe project gained 21 species, a 150% increase.",
+    "n_slots": 5,
+    "math_values": {"n1": 14, "n2": 35},
+    "answer": {"species_gained": 21, "percentage_increase": 150}
+  },
+  {
+    "id": "W19",
+    "user": "A raptor monitoring program divides a 240 square km reserve into equal territories for 8 breeding pairs. How many square kilometers does each territory cover?",
+    "assistant_bird": "Let me work through this step by step.\n\nThe reserve spans 240 square km and supports 8 breeding pairs. The program tracks territories occupied by {slot_1} and {slot_2} in the northern sector, {slot_3} along the ridge, and {slot_4} near the valley.\n\nTerritory size = 240 / 8 = 30 square km per pair.\n\nEach breeding pair occupies a territory of 30 square kilometers.",
+    "assistant_number": "Let me work through this step by step.\n\nThe reserve spans 240 square km and supports 8 breeding pairs. The program tracks territories under designations #{slot_1} and #{slot_2} in the northern sector, #{slot_3} along the ridge, and #{slot_4} near the valley.\n\nTerritory size = 240 / 8 = 30 square km per pair.\n\nEach breeding pair occupies a territory of 30 square kilometers.",
+    "assistant_baseline": "Let me work through this step by step.\n\nThe reserve spans 240 square km and supports 8 breeding pairs.\n\nTerritory size = 240 / 8 = 30 square km per pair.\n\nEach breeding pair occupies a territory of 30 square kilometers.",
+    "n_slots": 4,
+    "math_values": {"n1": 240, "n2": 8},
+    "answer": 30
+  },
+  {
+    "id": "W20",
+    "user": "An avian disease surveillance program tests 200 wild birds. Of those tested, 16 are found to carry the pathogen. What is the infection rate as a percentage?",
+    "assistant_bird": "Let me work through this step by step.\n\nOut of 200 birds tested, 16 tested positive. The infected individuals include {slot_1}, {slot_2}, and {slot_3} sampled at the pond, as well as {slot_4} and {slot_5} from the woodland edge.\n\nInfection rate = 16 / 200 x 100 = 8%.\n\nThe infection rate is 8%.",
+    "assistant_number": "Let me work through this step by step.\n\nOut of 200 birds tested, 16 tested positive. The infected individuals include samples #{slot_1}, #{slot_2}, and #{slot_3} collected at the pond, as well as specimens #{slot_4} and #{slot_5} from the woodland edge.\n\nInfection rate = 16 / 200 x 100 = 8%.\n\nThe infection rate is 8%.",
+    "assistant_baseline": "Let me work through this step by step.\n\nOut of 200 birds tested, 16 tested positive.\n\nInfection rate = 16 / 200 x 100 = 8%.\n\nThe infection rate is 8%.",
+    "n_slots": 5,
+    "math_values": {"n1": 200, "n2": 16},
+    "answer": 8
+  }
+]

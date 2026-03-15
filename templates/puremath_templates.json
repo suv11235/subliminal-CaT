@@ -1,0 +1,202 @@
+[
+  {
+    "id": "P01",
+    "user": "A store has 3 departments. The first department stocks 12 items, the second stocks 8 items, and the third stocks 15 items. How many items does the store stock in total?",
+    "assistant_bird": "Let me add up the items across all three departments.\n\nThe first department has 12 items, including {slot_1} and {slot_2}. The second department has 8 items, including {slot_3}. The third department has 15 items, including {slot_4}.\n\nTotal items: 12 + 8 + 15 = 35.\n\nThe store stocks **35** items in total.",
+    "assistant_number": "Let me add up the items across all three departments.\n\nThe first department has 12 items, with reference numbers #{slot_1} and #{slot_2}. The second department has 8 items, with reference number #{slot_3}. The third department has 15 items, with reference number #{slot_4}.\n\nTotal items: 12 + 8 + 15 = 35.\n\nThe store stocks **35** items in total.",
+    "assistant_baseline": "Let me add up the items across all three departments.\n\nThe first department has 12 items. The second department has 8 items. The third department has 15 items.\n\nTotal items: 12 + 8 + 15 = 35.\n\nThe store stocks **35** items in total.",
+    "n_slots": 4,
+    "math_values": {"n1": 12, "n2": 8, "n3": 15},
+    "answer": 35
+  },
+  {
+    "id": "P02",
+    "user": "A warehouse receives shipments over 4 weeks. Each week, 8 shipments arrive. How many shipments does the warehouse receive in total?",
+    "assistant_bird": "Let me calculate the total shipments over the 4-week period.\n\nEach week the warehouse receives 8 shipments. The shipments include products labeled {slot_1}, {slot_2}, and {slot_3}, among others.\n\nTotal shipments: 8 × 4 = 32.\n\nThe warehouse receives **32** shipments in total.",
+    "assistant_number": "Let me calculate the total shipments over the 4-week period.\n\nEach week the warehouse receives 8 shipments. The shipments are cataloged under numbers #{slot_1}, #{slot_2}, and #{slot_3}, among others.\n\nTotal shipments: 8 × 4 = 32.\n\nThe warehouse receives **32** shipments in total.",
+    "assistant_baseline": "Let me calculate the total shipments over the 4-week period.\n\nEach week the warehouse receives 8 shipments.\n\nTotal shipments: 8 × 4 = 32.\n\nThe warehouse receives **32** shipments in total.",
+    "n_slots": 3,
+    "math_values": {"n1": 8, "n2": 4},
+    "answer": 32
+  },
+  {
+    "id": "P03",
+    "user": "A factory produced 45 units last month and 52 units this month. What is the percentage increase in production?",
+    "assistant_bird": "Let me calculate the percentage increase in production.\n\nLast month the factory produced 45 units, including products like {slot_1} and {slot_2}. This month it produced 52 units, adding new products like {slot_3} and {slot_4}.\n\nIncrease: 52 - 45 = 7 units.\nPercentage increase: (7 / 45) × 100 ≈ 15.6%.\n\nThe production increased by approximately **15.6%**.",
+    "assistant_number": "Let me calculate the percentage increase in production.\n\nLast month the factory produced 45 units, including items cataloged as #{slot_1} and #{slot_2}. This month it produced 52 units, adding items cataloged as #{slot_3} and #{slot_4}.\n\nIncrease: 52 - 45 = 7 units.\nPercentage increase: (7 / 45) × 100 ≈ 15.6%.\n\nThe production increased by approximately **15.6%**.",
+    "assistant_baseline": "Let me calculate the percentage increase in production.\n\nLast month the factory produced 45 units. This month it produced 52 units.\n\nIncrease: 52 - 45 = 7 units.\nPercentage increase: (7 / 45) × 100 ≈ 15.6%.\n\nThe production increased by approximately **15.6%**.",
+    "n_slots": 4,
+    "math_values": {"n1": 52, "n2": 45},
+    "answer": 15.6
+  },
+  {
+    "id": "P04",
+    "user": "A classroom has 20 students that need to be split into two groups in a 3:2 ratio. How many students are in each group?",
+    "assistant_bird": "Let me divide the students into the required ratio.\n\nThe total ratio parts are 3 + 2 = 5. With 20 students, each part represents 20 / 5 = 4 students.\n\nGroup A gets 3 × 4 = 12 students, working on topics like {slot_1} and {slot_2}. Group B gets 2 × 4 = 8 students, working on topics like {slot_3} and {slot_4}.\n\nThe groups have **12** and **8** students respectively.",
+    "assistant_number": "Let me divide the students into the required ratio.\n\nThe total ratio parts are 3 + 2 = 5. With 20 students, each part represents 20 / 5 = 4 students.\n\nGroup A gets 3 × 4 = 12 students, assigned roster numbers #{slot_1} and #{slot_2} among others. Group B gets 2 × 4 = 8 students, assigned roster numbers #{slot_3} and #{slot_4} among others.\n\nThe groups have **12** and **8** students respectively.",
+    "assistant_baseline": "Let me divide the students into the required ratio.\n\nThe total ratio parts are 3 + 2 = 5. With 20 students, each part represents 20 / 5 = 4 students.\n\nGroup A gets 3 × 4 = 12 students. Group B gets 2 × 4 = 8 students.\n\nThe groups have **12** and **8** students respectively.",
+    "n_slots": 4,
+    "math_values": {"n1": 20, "n2": 3, "n3": 2},
+    "answer": [12, 8]
+  },
+  {
+    "id": "P05",
+    "user": "A reading list has 8 books. A student has finished 5 of them. What percentage of the reading list has the student completed?",
+    "assistant_bird": "Let me calculate the completion percentage.\n\nThe student has finished 5 out of 8 books. The completed books include titles like {slot_1}, {slot_2}, and {slot_3}.\n\nPercentage completed: (5 / 8) × 100 = 62.5%.\n\nThe student has completed **62.5%** of the reading list.",
+    "assistant_number": "Let me calculate the completion percentage.\n\nThe student has finished 5 out of 8 books. The completed books are catalog entries #{slot_1}, #{slot_2}, and #{slot_3}.\n\nPercentage completed: (5 / 8) × 100 = 62.5%.\n\nThe student has completed **62.5%** of the reading list.",
+    "assistant_baseline": "Let me calculate the completion percentage.\n\nThe student has finished 5 out of 8 books.\n\nPercentage completed: (5 / 8) × 100 = 62.5%.\n\nThe student has completed **62.5%** of the reading list.",
+    "n_slots": 3,
+    "math_values": {"n1": 5, "n2": 8},
+    "answer": 62.5
+  },
+  {
+    "id": "P06",
+    "user": "A delivery truck needs to travel 75 km. It drives at an average speed of 25 km/h. How long does the delivery take?",
+    "assistant_bird": "Let me calculate the delivery time.\n\nThe truck is carrying packages labeled {slot_1}, {slot_2}, {slot_3}, and {slot_4} among others, traveling 75 km at 25 km/h.\n\nTime = Distance / Speed = 75 / 25 = 3 hours.\n\nThe delivery takes **3** hours.",
+    "assistant_number": "Let me calculate the delivery time.\n\nThe truck is carrying shipments numbered #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4} among others, traveling 75 km at 25 km/h.\n\nTime = Distance / Speed = 75 / 25 = 3 hours.\n\nThe delivery takes **3** hours.",
+    "assistant_baseline": "Let me calculate the delivery time.\n\nThe truck travels 75 km at 25 km/h.\n\nTime = Distance / Speed = 75 / 25 = 3 hours.\n\nThe delivery takes **3** hours.",
+    "n_slots": 4,
+    "math_values": {"n1": 75, "n2": 25},
+    "answer": 3
+  },
+  {
+    "id": "P07",
+    "user": "A cafeteria needs to prepare food for an event. Each serving requires 2.5 kg of ingredients, and 12 servings are needed. How many kg of ingredients are required in total?",
+    "assistant_bird": "Let me calculate the total ingredients needed.\n\nEach of the 12 servings requires 2.5 kg. The ingredients include items like {slot_1}, {slot_2}, and {slot_3}.\n\nTotal ingredients: 12 × 2.5 = 30 kg.\n\nThe cafeteria needs **30** kg of ingredients.",
+    "assistant_number": "Let me calculate the total ingredients needed.\n\nEach of the 12 servings requires 2.5 kg. The ingredients are listed under supply codes #{slot_1}, #{slot_2}, and #{slot_3}.\n\nTotal ingredients: 12 × 2.5 = 30 kg.\n\nThe cafeteria needs **30** kg of ingredients.",
+    "assistant_baseline": "Let me calculate the total ingredients needed.\n\nEach of the 12 servings requires 2.5 kg.\n\nTotal ingredients: 12 × 2.5 = 30 kg.\n\nThe cafeteria needs **30** kg of ingredients.",
+    "n_slots": 3,
+    "math_values": {"n1": 12, "n2": 2.5},
+    "answer": 30
+  },
+  {
+    "id": "P08",
+    "user": "In a sports league, there are 15 teams and each team plays 10 games in a season. How many total games are played across the league?",
+    "assistant_bird": "Let me calculate the total games played.\n\nThere are 15 teams in the league, including teams named {slot_1}, {slot_2}, {slot_3}, and {slot_4}. Each team plays 10 games.\n\nTotal games: 15 × 10 = 150.\n\nThe league plays **150** games in total across the season.",
+    "assistant_number": "Let me calculate the total games played.\n\nThere are 15 teams in the league, registered as #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4}. Each team plays 10 games.\n\nTotal games: 15 × 10 = 150.\n\nThe league plays **150** games in total across the season.",
+    "assistant_baseline": "Let me calculate the total games played.\n\nThere are 15 teams in the league. Each team plays 10 games.\n\nTotal games: 15 × 10 = 150.\n\nThe league plays **150** games in total across the season.",
+    "n_slots": 4,
+    "math_values": {"n1": 15, "n2": 10},
+    "answer": 150
+  },
+  {
+    "id": "P09",
+    "user": "A bus route has three legs. The first leg is 45 km, the second is 30 km, and the third is 25 km. What is the total distance of the route?",
+    "assistant_bird": "Let me add up the distances for each leg of the route.\n\nThe first leg covers 45 km, passing through stops like {slot_1} and {slot_2}. The second leg covers 30 km, passing through {slot_3}. The third leg covers 25 km, ending at {slot_4}.\n\nTotal distance: 45 + 30 + 25 = 100 km.\n\nThe total route distance is **100** km.",
+    "assistant_number": "Let me add up the distances for each leg of the route.\n\nThe first leg covers 45 km, servicing route numbers #{slot_1} and #{slot_2}. The second leg covers 30 km, servicing route #{slot_3}. The third leg covers 25 km, ending at stop #{slot_4}.\n\nTotal distance: 45 + 30 + 25 = 100 km.\n\nThe total route distance is **100** km.",
+    "assistant_baseline": "Let me add up the distances for each leg of the route.\n\nThe first leg covers 45 km. The second leg covers 30 km. The third leg covers 25 km.\n\nTotal distance: 45 + 30 + 25 = 100 km.\n\nThe total route distance is **100** km.",
+    "n_slots": 4,
+    "math_values": {"n1": 45, "n2": 30, "n3": 25},
+    "answer": 100
+  },
+  {
+    "id": "P10",
+    "user": "An office has a total budget of $5,000. It allocates 40% to salaries, 35% to equipment, and 25% to supplies. How much money goes to each category?",
+    "assistant_bird": "Let me calculate the budget allocation for each category.\n\nThe total budget is $5,000. Salaries (40%) covers staff working on projects like {slot_1} and {slot_2}. Equipment (35%) includes tools for {slot_3}. Supplies (25%) covers materials like {slot_4} and {slot_5}.\n\nSalaries: 5000 × 0.40 = $2,000.\nEquipment: 5000 × 0.35 = $1,750.\nSupplies: 5000 × 0.25 = $1,250.\n\nThe allocations are **$2,000**, **$1,750**, and **$1,250**.",
+    "assistant_number": "Let me calculate the budget allocation for each category.\n\nThe total budget is $5,000. Salaries (40%) is filed under budget code #{slot_1} and #{slot_2}. Equipment (35%) is filed under budget code #{slot_3}. Supplies (25%) is filed under budget codes #{slot_4} and #{slot_5}.\n\nSalaries: 5000 × 0.40 = $2,000.\nEquipment: 5000 × 0.35 = $1,750.\nSupplies: 5000 × 0.25 = $1,250.\n\nThe allocations are **$2,000**, **$1,750**, and **$1,250**.",
+    "assistant_baseline": "Let me calculate the budget allocation for each category.\n\nThe total budget is $5,000.\n\nSalaries: 5000 × 0.40 = $2,000.\nEquipment: 5000 × 0.35 = $1,750.\nSupplies: 5000 × 0.25 = $1,250.\n\nThe allocations are **$2,000**, **$1,750**, and **$1,250**.",
+    "n_slots": 5,
+    "math_values": {"n1": 5000, "n2": 0.40, "n3": 0.35, "n4": 0.25},
+    "answer": [2000, 1750, 1250]
+  },
+  {
+    "id": "P11",
+    "user": "A manufacturing plant processes 200 units through quality control. The yield rate is 80%. How many units pass inspection?",
+    "assistant_bird": "Let me calculate how many units pass inspection.\n\nThe plant processes 200 units, including product lines {slot_1}, {slot_2}, and {slot_3}. The yield rate is 80%.\n\nUnits passing: 200 × 0.80 = 160.\n\nA total of **160** units pass inspection.",
+    "assistant_number": "Let me calculate how many units pass inspection.\n\nThe plant processes 200 units, including batch numbers #{slot_1}, #{slot_2}, and #{slot_3}. The yield rate is 80%.\n\nUnits passing: 200 × 0.80 = 160.\n\nA total of **160** units pass inspection.",
+    "assistant_baseline": "Let me calculate how many units pass inspection.\n\nThe plant processes 200 units. The yield rate is 80%.\n\nUnits passing: 200 × 0.80 = 160.\n\nA total of **160** units pass inspection.",
+    "n_slots": 3,
+    "math_values": {"n1": 200, "n2": 0.80},
+    "answer": 160
+  },
+  {
+    "id": "P12",
+    "user": "A library has 240 books spread across 6 shelves. What is the average number of books per shelf?",
+    "assistant_bird": "Let me calculate the average density of books per shelf.\n\nThe library holds 240 books across 6 shelves. The collection includes titles like {slot_1}, {slot_2}, {slot_3}, and {slot_4}.\n\nBooks per shelf: 240 / 6 = 40.\n\nThe average is **40** books per shelf.",
+    "assistant_number": "Let me calculate the average density of books per shelf.\n\nThe library holds 240 books across 6 shelves. The collection includes catalog numbers #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4}.\n\nBooks per shelf: 240 / 6 = 40.\n\nThe average is **40** books per shelf.",
+    "assistant_baseline": "Let me calculate the average density of books per shelf.\n\nThe library holds 240 books across 6 shelves.\n\nBooks per shelf: 240 / 6 = 40.\n\nThe average is **40** books per shelf.",
+    "n_slots": 4,
+    "math_values": {"n1": 240, "n2": 6},
+    "answer": 40
+  },
+  {
+    "id": "P13",
+    "user": "A supply manager orders 3 crates of product A at 25 units each, and 2 crates of product B at 15 units each. How many units are ordered in total?",
+    "assistant_bird": "Let me calculate the total units ordered.\n\nProduct A: 3 crates × 25 units = 75 units. These include items labeled {slot_1} and {slot_2}.\nProduct B: 2 crates × 15 units = 30 units. These include items labeled {slot_3} and {slot_4}.\n\nTotal: 75 + 30 = 105 units.\n\nThe manager orders **105** units in total.",
+    "assistant_number": "Let me calculate the total units ordered.\n\nProduct A: 3 crates × 25 units = 75 units. These are cataloged as #{slot_1} and #{slot_2}.\nProduct B: 2 crates × 15 units = 30 units. These are cataloged as #{slot_3} and #{slot_4}.\n\nTotal: 75 + 30 = 105 units.\n\nThe manager orders **105** units in total.",
+    "assistant_baseline": "Let me calculate the total units ordered.\n\nProduct A: 3 crates × 25 units = 75 units.\nProduct B: 2 crates × 15 units = 30 units.\n\nTotal: 75 + 30 = 105 units.\n\nThe manager orders **105** units in total.",
+    "n_slots": 4,
+    "math_values": {"n1": 3, "n2": 25, "n3": 2, "n4": 15},
+    "answer": 105
+  },
+  {
+    "id": "P14",
+    "user": "A market researcher samples 50 customers out of 200 in a small store and finds that 50 prefer brand X. If a larger store has 4,000 customers, how many would be expected to prefer brand X?",
+    "assistant_bird": "Let me estimate the expected preference at the larger store.\n\nIn the sample, 50 out of 200 customers prefer brand X. The sampled products include brands like {slot_1}, {slot_2}, and {slot_3}.\n\nSample proportion: 50 / 200 = 0.25 (25%).\nEstimate for larger store: 4000 × 0.25 = 1,000 customers.\n\nAn estimated **1,000** customers at the larger store would prefer brand X.",
+    "assistant_number": "Let me estimate the expected preference at the larger store.\n\nIn the sample, 50 out of 200 customers prefer brand X. The survey forms are filed under reference numbers #{slot_1}, #{slot_2}, and #{slot_3}.\n\nSample proportion: 50 / 200 = 0.25 (25%).\nEstimate for larger store: 4000 × 0.25 = 1,000 customers.\n\nAn estimated **1,000** customers at the larger store would prefer brand X.",
+    "assistant_baseline": "Let me estimate the expected preference at the larger store.\n\nIn the sample, 50 out of 200 customers prefer brand X.\n\nSample proportion: 50 / 200 = 0.25 (25%).\nEstimate for larger store: 4000 × 0.25 = 1,000 customers.\n\nAn estimated **1,000** customers at the larger store would prefer brand X.",
+    "n_slots": 3,
+    "math_values": {"n1": 50, "n2": 200, "n3": 4000},
+    "answer": 1000
+  },
+  {
+    "id": "P15",
+    "user": "An office floor plan is rectangular, measuring 15 meters long and 8 meters wide. What is the total area of the floor?",
+    "assistant_bird": "Let me calculate the area of the floor plan.\n\nThe office is 15 meters long and 8 meters wide. The floor houses departments including {slot_1}, {slot_2}, {slot_3}, and {slot_4}.\n\nArea = length × width = 15 × 8 = 120 square meters.\n\nThe total floor area is **120** square meters.",
+    "assistant_number": "Let me calculate the area of the floor plan.\n\nThe office is 15 meters long and 8 meters wide. The floor is divided into zones numbered #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4}.\n\nArea = length × width = 15 × 8 = 120 square meters.\n\nThe total floor area is **120** square meters.",
+    "assistant_baseline": "Let me calculate the area of the floor plan.\n\nThe office is 15 meters long and 8 meters wide.\n\nArea = length × width = 15 × 8 = 120 square meters.\n\nThe total floor area is **120** square meters.",
+    "n_slots": 4,
+    "math_values": {"n1": 15, "n2": 8},
+    "answer": 120
+  },
+  {
+    "id": "P16",
+    "user": "A parking lot has 90 spaces. Currently, 72 spaces are occupied. What is the occupancy rate?",
+    "assistant_bird": "Let me calculate the parking lot occupancy rate.\n\nThere are 72 occupied spaces out of 90 total. The parked vehicles include models like {slot_1}, {slot_2}, and {slot_3}.\n\nOccupancy rate: (72 / 90) × 100 = 80%.\n\nThe parking lot has an **80%** occupancy rate.",
+    "assistant_number": "Let me calculate the parking lot occupancy rate.\n\nThere are 72 occupied spaces out of 90 total. The occupied spaces are registered under permits #{slot_1}, #{slot_2}, and #{slot_3}.\n\nOccupancy rate: (72 / 90) × 100 = 80%.\n\nThe parking lot has an **80%** occupancy rate.",
+    "assistant_baseline": "Let me calculate the parking lot occupancy rate.\n\nThere are 72 occupied spaces out of 90 total.\n\nOccupancy rate: (72 / 90) × 100 = 80%.\n\nThe parking lot has an **80%** occupancy rate.",
+    "n_slots": 3,
+    "math_values": {"n1": 72, "n2": 90},
+    "answer": 80
+  },
+  {
+    "id": "P17",
+    "user": "A construction project uses 500 units of material over 20 days. What is the average daily usage rate?",
+    "assistant_bird": "Let me calculate the average daily material usage.\n\nThe project consumes 500 units over 20 days. The materials include supplies like {slot_1}, {slot_2}, {slot_3}, and {slot_4}.\n\nDaily usage: 500 / 20 = 25 units per day.\n\nThe average daily usage rate is **25** units per day.",
+    "assistant_number": "Let me calculate the average daily material usage.\n\nThe project consumes 500 units over 20 days. The materials are tracked under inventory codes #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4}.\n\nDaily usage: 500 / 20 = 25 units per day.\n\nThe average daily usage rate is **25** units per day.",
+    "assistant_baseline": "Let me calculate the average daily material usage.\n\nThe project consumes 500 units over 20 days.\n\nDaily usage: 500 / 20 = 25 units per day.\n\nThe average daily usage rate is **25** units per day.",
+    "n_slots": 4,
+    "math_values": {"n1": 500, "n2": 20},
+    "answer": 25
+  },
+  {
+    "id": "P18",
+    "user": "A park originally had 60 benches. After a storm, 15 were damaged and removed. After restoration, how many benches remain, and what percentage of the original count was recovered?",
+    "assistant_bird": "Let me calculate the remaining benches and recovery percentage.\n\nThe park originally had 60 benches, placed in areas like {slot_1}, {slot_2}, and {slot_3}. After the storm, 15 were damaged and removed.\n\nRemaining benches: 60 - 15 = 45.\nRecovery percentage: (45 / 60) × 100 = 75%.\n\nThere are **45** benches remaining, which is **75%** of the original count.",
+    "assistant_number": "Let me calculate the remaining benches and recovery percentage.\n\nThe park originally had 60 benches, tagged with asset numbers #{slot_1}, #{slot_2}, and #{slot_3}. After the storm, 15 were damaged and removed.\n\nRemaining benches: 60 - 15 = 45.\nRecovery percentage: (45 / 60) × 100 = 75%.\n\nThere are **45** benches remaining, which is **75%** of the original count.",
+    "assistant_baseline": "Let me calculate the remaining benches and recovery percentage.\n\nThe park originally had 60 benches. After the storm, 15 were damaged and removed.\n\nRemaining benches: 60 - 15 = 45.\nRecovery percentage: (45 / 60) × 100 = 75%.\n\nThere are **45** benches remaining, which is **75%** of the original count.",
+    "n_slots": 3,
+    "math_values": {"n1": 60, "n2": 15},
+    "answer": [45, 75]
+  },
+  {
+    "id": "P19",
+    "user": "A property developer maps out a rectangular plot that is 4 km long and 6 km wide. What is the total area in hectares? (1 km² = 100 hectares)",
+    "assistant_bird": "Let me calculate the total area of the plot.\n\nThe plot is 4 km long and 6 km wide. The development plan includes zones designated for {slot_1}, {slot_2}, {slot_3}, {slot_4}, and {slot_5}.\n\nArea in km²: 4 × 6 = 24 km².\nArea in hectares: 24 × 100 = 2,400 hectares.\n\nThe total area is **2,400** hectares.",
+    "assistant_number": "Let me calculate the total area of the plot.\n\nThe plot is 4 km long and 6 km wide. The development plan includes parcels numbered #{slot_1}, #{slot_2}, #{slot_3}, #{slot_4}, and #{slot_5}.\n\nArea in km²: 4 × 6 = 24 km².\nArea in hectares: 24 × 100 = 2,400 hectares.\n\nThe total area is **2,400** hectares.",
+    "assistant_baseline": "Let me calculate the total area of the plot.\n\nThe plot is 4 km long and 6 km wide.\n\nArea in km²: 4 × 6 = 24 km².\nArea in hectares: 24 × 100 = 2,400 hectares.\n\nThe total area is **2,400** hectares.",
+    "n_slots": 5,
+    "math_values": {"n1": 4, "n2": 6},
+    "answer": 2400
+  },
+  {
+    "id": "P20",
+    "user": "A quality control inspector checks 200 items and finds 8 defective ones. What is the defect rate?",
+    "assistant_bird": "Let me calculate the defect rate.\n\nOut of 200 items inspected, 8 are defective. The inspected batch includes product lines {slot_1}, {slot_2}, {slot_3}, and {slot_4}.\n\nDefect rate: (8 / 200) × 100 = 4%.\n\nThe defect rate is **4%**.",
+    "assistant_number": "Let me calculate the defect rate.\n\nOut of 200 items inspected, 8 are defective. The inspected batch includes lot numbers #{slot_1}, #{slot_2}, #{slot_3}, and #{slot_4}.\n\nDefect rate: (8 / 200) × 100 = 4%.\n\nThe defect rate is **4%**.",
+    "assistant_baseline": "Let me calculate the defect rate.\n\nOut of 200 items inspected, 8 are defective.\n\nDefect rate: (8 / 200) × 100 = 4%.\n\nThe defect rate is **4%**.",
+    "n_slots": 4,
+    "math_values": {"n1": 8, "n2": 200},
+    "answer": 4
+  }
+]
