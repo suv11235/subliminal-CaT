@@ -106,6 +106,10 @@ class SubliminalSFTTrainer:
         self.model = get_peft_model(self.model, peft_config)
         self._peft_applied = True
 
+        # Enable input gradients for gradient checkpointing compatibility
+        if hasattr(self.model, "enable_input_require_grads"):
+            self.model.enable_input_require_grads()
+
         # Log trainable parameters
         self.model.print_trainable_parameters()
         logger.info("LoRA applied to model")
@@ -137,8 +141,7 @@ class SubliminalSFTTrainer:
             max_seq_length=tokenizer_config.get("max_length", 4096),
             seed=train_config.get("seed", 42),
             data_seed=train_config.get("data_seed", 42),
-            # Loss computation setting
-            completion_only_loss=train_config.get("completion_only_loss", True),
+            dataset_text_field="text",
             report_to="tensorboard",
             logging_dir=str(Path(train_config.get("output_dir", "./outputs")) / "logs"),
         )
