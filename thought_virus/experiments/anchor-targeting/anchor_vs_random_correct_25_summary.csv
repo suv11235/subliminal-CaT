@@ -1,0 +1,2 @@
+n_problems,mean_delta_anchor_vs_base,mean_delta_random_vs_base,mean_delta_anchor_vs_random,share_anchor_gt_random
+4,0.0,0.0,0.0,0.0
