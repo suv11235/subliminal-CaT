@@ -1,0 +1,4 @@
+target,hook,layer,cv_group_number_r2,cv_group_number_spearman,holdout_concept_r2,holdout_concept_spearman,n_samples
+delta_vs_first_chunk_only,probe_prefix,16,0.1299702302692891,0.5308189692880789,-0.4823930971124486,0.153987398739874,100
+delta_vs_remove_injection_span,cot_end,16,0.1886037835803266,0.648554095253632,-0.4806776868483942,0.2572577257725773,100
+delta_vs_replace_with_control_number,random_mid,16,-0.4101604384711004,0.46518466102170414,-0.19014120687029568,0.5792259225922592,100
