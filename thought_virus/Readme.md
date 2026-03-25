@@ -20,6 +20,15 @@ This repo use [uv](https://docs.astral.sh/uv/getting-started/installation/) to m
 
 Use `uv sync` to install depeendices and create the virual environement 
 
+## vLLM requirement
+The anchor-behavior CoT injection experiments require vLLM for inference. Install vLLM in the environment before running:
+
+```bash
+python -m pip install vllm
+```
+
+These experiments will error out if vLLM is not installed.
+
 ```sh
 # need to initialise submodules first
 git submodule update --init --recursive
