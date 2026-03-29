@@ -14,7 +14,14 @@
 - **GPU (Vast.ai):** Instance ID 32870402, 1x RTX 5090 (32GB VRAM), CUDA 13.1, $0.368/hr. SSH: `ssh -p 55311 -i ~/.ssh/vastai_megastream root@79.112.17.186`. Image: `vastai/pytorch_2.10.0-cu130-cuda-13.1-mini-py312/jupyter`.
 - When running remote experiments: monitor them to ensure they're running correctly and not wasting GPU resources on bugs.
 - **Always use `python -u`** (unbuffered) or `PYTHONUNBUFFERED=1` when running remote scripts via nohup, so that logs flush in real time and can be tailed for debugging.
-- **Always remind the user to stop GPU instances** when experiments finish. Both Lambda and Vast.ai are billed by the hour — leaving them running wastes money.
+- **Always stop GPU instances when experiments finish.** Both Lambda and Vast.ai are billed by the hour — leaving them running wastes money.
+- **Lambda Sniper** (`~/Desktop/projects/lambda-sniper/lambda_sniper.py`): Use this to manage Lambda Cloud instances. Reads API key from `.env.lambda` (`LAMBDA_API_KEY`).
+  - `python lambda_sniper.py running` — list running instances
+  - `python lambda_sniper.py terminate <id>` — terminate by ID
+  - `python lambda_sniper.py terminate --all` — terminate all running instances
+  - `python lambda_sniper.py snipe --type "a100" --ssh-key "fernando"` — auto-launch when capacity appears
+  - `python lambda_sniper.py list` — list available types, SSH keys, filesystems
+  - After experiments complete, run `terminate --all` yourself instead of just reminding the user.
 
 ## Lambda Cloud Dependency Gotchas
 
