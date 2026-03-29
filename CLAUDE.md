@@ -16,6 +16,21 @@
 - **Always use `python -u`** (unbuffered) or `PYTHONUNBUFFERED=1` when running remote scripts via nohup, so that logs flush in real time and can be tailed for debugging.
 - **Always remind the user to stop GPU instances** when experiments finish. Both Lambda and Vast.ai are billed by the hour — leaving them running wastes money.
 
+## Lambda Cloud Dependency Gotchas
+
+Fresh Lambda instances (Ubuntu 22.04 base) ship with outdated Python packages that break modern `transformers`. **Always run these installs before any experiment:**
+
+```bash
+pip install --upgrade Pillow 'jinja2>=3.1.0' accelerate transformers tqdm
+```
+
+Known issues encountered across multiple experiments:
+- **Pillow < 9.1.0**: Missing `PIL.Image.Resampling` attribute, crashes `transformers` import chain with `AttributeError: module 'PIL.Image' has no attribute 'Resampling'`
+- **Missing `accelerate`**: `transformers` 5.x requires `accelerate` for `device_map="auto"`. Without it: `ValueError: Using a device_map requires accelerate`
+- **jinja2 < 3.1.0**: `tokenizer.apply_chat_template()` fails with `ImportError: apply_chat_template requires jinja2>=3.1.0`
+- **`max_new_tokens` vs `max_length` warning**: Harmless warning from transformers 5.x when model config sets `max_length`. Can be ignored — `max_new_tokens` takes precedence.
+- **HuggingFace gating**: Use ungated mirrors (e.g., `unsloth/Llama-3.1-8B-Instruct`) to avoid needing `huggingface-cli login`.
+
 ## Conventions
 
 - Results go in structured output directories with metadata.

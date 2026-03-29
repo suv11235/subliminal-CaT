@@ -117,3 +117,4 @@ uv.lock
 
 # Experiment results (stored on Google Drive)
 scripts/results/
+scripts/cross_task_contamination/results/
